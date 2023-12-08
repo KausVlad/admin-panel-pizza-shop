@@ -1,7 +1,33 @@
+import { useGetPizzasQuery } from "../store/pizzaApi/pizza.endpoints";
+import UniversalProductCard from "./ui/UniversalProductCard";
+
 export default function PizzaList() {
+  const { data, error, isLoading } = useGetPizzasQuery(null);
+  console.log(data, error, isLoading);
+
   return (
-    <>
-      <h1>Pizza List</h1>
-    </>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Weigh</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data?.map((pizza) => (
+          <UniversalProductCard
+            key={pizza.id}
+            id={pizza.id}
+            productName={pizza.pizzaName}
+            productImage={"image(WIP)"}
+            portion={pizza.weightStandard}
+            price={pizza.priceStandard}
+          />
+        ))}
+      </tbody>
+    </table>
   );
 }

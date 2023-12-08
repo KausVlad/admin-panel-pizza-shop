@@ -1,19 +1,23 @@
 type UniversalProductCardProps = {
+  id: number;
   productName: string;
   price: number;
-  image: string;
+  productImage: string;
   portion: number;
 };
+
 export default function UniversalProductCard({
+  id,
   productName,
-  image,
+  productImage,
   price,
   portion,
 }: UniversalProductCardProps) {
   return (
     <tr>
+      <td>{id}</td>
       <td>{productName}</td>
-      <td>{image}</td>
+      <td>{productImage}</td>
       <td>{price}</td>
       <td>{portion}</td>
     </tr>
