@@ -11,6 +11,10 @@ export const router = createBrowserRouter([
         path: "pizza",
         element: <Pizzas />,
       },
+      {
+        path: "pizza/:pizzaName",
+        element: <Pizzas />,
+      },
     ],
   },
 ]);

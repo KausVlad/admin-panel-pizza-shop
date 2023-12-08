@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type UniversalProductCardProps = {
   id: number;
   productName: string;
@@ -20,6 +22,9 @@ export default function UniversalProductCard({
       <td>{productImage}</td>
       <td>{price}</td>
       <td>{portion}</td>
+      <td>
+        <Link to={`/pizza/${productName}`}>details</Link>
+      </td>
     </tr>
   );
 }
