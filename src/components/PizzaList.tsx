@@ -1,5 +1,5 @@
 import { useGetPizzasQuery } from "../store/pizzaApi/pizza.endpoints";
-import UniversalProductCard from "./ui/UniversalProductCard";
+import UniversalProductCell from "./ui/UniversalProductCell";
 
 export default function PizzaList() {
   const { data, error, isLoading } = useGetPizzasQuery(null);
@@ -18,7 +18,7 @@ export default function PizzaList() {
       </thead>
       <tbody>
         {data?.map((pizza) => (
-          <UniversalProductCard
+          <UniversalProductCell
             key={pizza.id}
             id={pizza.id}
             productName={pizza.pizzaName}

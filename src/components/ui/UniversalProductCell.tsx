@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-type UniversalProductCardProps = {
+type UniversalProductCellProps = {
   id: number;
   productName: string;
   price: number;
@@ -8,13 +8,13 @@ type UniversalProductCardProps = {
   portion: number;
 };
 
-export default function UniversalProductCard({
+export default function UniversalProductCell({
   id,
   productName,
   productImage,
   price,
   portion,
-}: UniversalProductCardProps) {
+}: UniversalProductCellProps) {
   return (
     <tr>
       <td>{id}</td>
