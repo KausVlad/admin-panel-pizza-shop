@@ -29,13 +29,21 @@ export default function PizzaDetails() {
     }
   }, [data]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { id, value } = e.target;
     console.log(id, value);
     setPizzaDetails((prevDetails) => ({
       ...prevDetails,
       [id]: value,
     }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
   if (isLoading) {
@@ -68,14 +76,24 @@ export default function PizzaDetails() {
         onChange={handleInputChange}
       />
       <label htmlFor="doughCrust">Dough Crust</label>
-      <select name="doughCrust" id="doughCrust">
+      <select
+        name="doughCrust"
+        id="doughCrust"
+        value={pizzaDetails.doughCrust}
+        onChange={handleInputChange}
+      >
         <option value="THIN">Thin</option>
         <option value="THICK_CRUST">Thick Crust</option>
         <option value="PHILADELPHIA">Philadelphia</option>
         <option value="HOT_DOG_CRUST">Hot Dog Crust</option>
       </select>
       <label htmlFor="pizzaGroup">Pizza Group</label>
-      <select name="pizzaGroup" id="pizzaGroup">
+      <select
+        name="pizzaGroup"
+        id="pizzaGroup"
+        value={pizzaDetails.pizzaGroup}
+        onChange={handleInputChange}
+      >
         <option value="NOVELTIES">Novelty</option>
         <option value="HEROES">Heroes</option>
         <option value="WONDER">Wonder</option>
