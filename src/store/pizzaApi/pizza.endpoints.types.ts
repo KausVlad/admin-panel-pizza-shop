@@ -7,6 +7,7 @@ export type TPizzaData = {
   weightStandard: number;
   priceStandard: number;
   doughCrust: string;
+  pizzaGroup: string;
   ingredients: {
     id: number;
     ingredientName: string;
