@@ -6,10 +6,11 @@ export default function PizzaDetails() {
   const { pizzaName: paramsPizzaName } = useParams();
   const { data, isLoading } = useGetPizzaByNameQuery(paramsPizzaName || "");
   const [pizzaDetails, setPizzaDetails] = useState({
-    id: 0,
     pizzaName: "",
     priceStandard: 0,
     weightStandard: 0,
+    ingredients: "",
+    pizzaAttributes: "",
     doughCrust: "",
     pizzaGroup: "",
   });
@@ -19,10 +20,16 @@ export default function PizzaDetails() {
   useEffect(() => {
     if (data) {
       setPizzaDetails({
-        id: data.id,
         pizzaName: data.pizzaName,
+        ingredients: data?.ingredients
+          .map((ingredient) => ingredient.ingredientName)
+          .join(", "),
+        pizzaAttributes: data?.pizzaAttributes
+          .map((attribute) => attribute.attributeName)
+          .join(", "),
         priceStandard: data.priceStandard,
         weightStandard: data.weightStandard,
+
         doughCrust: data.doughCrust,
         pizzaGroup: data.pizzaGroup,
       });
@@ -54,6 +61,10 @@ export default function PizzaDetails() {
     <form action="">
       <label htmlFor="id">ID</label>
       <input type="text" id="id" disabled value={data?.id} />
+      <label htmlFor="createdAt">Created</label>
+      <input type="text" id="createdAt" disabled value={data?.createdAt} />
+      <label htmlFor="updatedAt">Updated</label>
+      <input type="text" id="updatedAt" disabled value={data?.updatedAt} />
       <label htmlFor="pizzaName">Pizza Name</label>
       <input
         type="text"
@@ -73,6 +84,22 @@ export default function PizzaDetails() {
         type="number"
         id="weightStandard"
         value={pizzaDetails?.weightStandard}
+        onChange={handleInputChange}
+      />
+      <label htmlFor="doughCrust">Dough Crust</label>
+      <label htmlFor="ingredients">Ingredients</label>
+      <input
+        type="text"
+        id="ingredients"
+        value={pizzaDetails?.ingredients}
+        onChange={handleInputChange}
+      />
+      <label htmlFor="doughCrust">Dough Crust</label>
+      <label htmlFor="pizzaAttributes">Pizza Attributes</label>
+      <input
+        type="text"
+        id="pizzaAttributes"
+        value={pizzaDetails?.pizzaAttributes}
         onChange={handleInputChange}
       />
       <label htmlFor="doughCrust">Dough Crust</label>
