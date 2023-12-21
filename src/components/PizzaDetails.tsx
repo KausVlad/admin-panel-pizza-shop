@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetPizzaByNameQuery } from "../store/pizzaApi/pizza.endpoints";
+import { useGetPizzaByNameQuery } from "../store/pizzaShopApi/pizza.endpoints";
 import { useEffect, useState } from "react";
 
 export default function PizzaDetails() {
@@ -49,9 +49,9 @@ export default function PizzaDetails() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  // };
 
   if (isLoading) {
     return <div>Loading...</div>;

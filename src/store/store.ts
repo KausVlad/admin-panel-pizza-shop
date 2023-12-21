@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { pizzaApi } from "./pizzaApi/pizza.api";
+import { pizzaShopApi } from "./pizzaShopApi/pizzaShop.api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 const rootReducer = combineReducers({
-  [pizzaApi.reducerPath]: pizzaApi.reducer,
+  [pizzaShopApi.reducerPath]: pizzaShopApi.reducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   devTools: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(pizzaApi.middleware),
+    getDefaultMiddleware().concat(pizzaShopApi.middleware),
 });
 
 setupListeners(store.dispatch);

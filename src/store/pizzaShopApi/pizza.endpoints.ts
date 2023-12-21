@@ -1,7 +1,7 @@
-import { pizzaApi } from "./pizza.api";
+import { pizzaShopApi } from "./pizzaShop.api";
 import { TPizzaData } from "./pizza.endpoints.types";
 
-export const pizzaEndpoints = pizzaApi.injectEndpoints({
+export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
     getPizzas: builder.query<TPizzaData[], null>({
       query: () => ({

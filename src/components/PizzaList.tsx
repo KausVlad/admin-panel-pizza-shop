@@ -1,4 +1,4 @@
-import { useGetPizzasQuery } from "../store/pizzaApi/pizza.endpoints";
+import { useGetPizzasQuery } from "../store/pizzaShopApi/pizza.endpoints";
 import UniversalProductCell from "./ui/UniversalProductCell";
 
 export default function PizzaList() {
