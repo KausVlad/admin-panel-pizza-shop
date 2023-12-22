@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { authEndpoints } from "../store/pizzaShopApi/auth.endpoints";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
@@ -14,12 +15,22 @@ export default function LoginForm() {
     }));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { data } = authEndpoints.useLoginQuery({
+      email: credentials.emailOrPhone,
+      password: credentials.password,
+    });
+    console.log(data);
+  };
+
   console.log(credentials);
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <label>
         Email or phone
         <input
+          required
           type="text"
           name="emailOrPhone"
           value={credentials.emailOrPhone}
@@ -29,6 +40,7 @@ export default function LoginForm() {
       <label>
         Password
         <input
+          required
           type="password"
           name="password"
           autoComplete="current-password"
@@ -37,6 +49,6 @@ export default function LoginForm() {
         />
       </label>
       <button type="submit">Login</button>
-    </div>
+    </form>
   );
 }
