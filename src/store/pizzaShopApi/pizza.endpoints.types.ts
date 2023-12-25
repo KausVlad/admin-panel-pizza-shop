@@ -1,4 +1,4 @@
-export type TPizzaData = {
+export type PizzaData = {
   id: number;
   pizzaName: string;
   createdAt: string;

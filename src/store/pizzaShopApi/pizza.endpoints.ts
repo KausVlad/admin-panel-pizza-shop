@@ -1,9 +1,9 @@
 import { pizzaShopApi } from "./pizzaShop.api";
-import { TPizzaData } from "./pizza.endpoints.types";
+import { PizzaData } from "./pizza.endpoints.types";
 
 export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
-    getPizzas: builder.query<TPizzaData[], null>({
+    getPizzas: builder.query<PizzaData[], null>({
       query: () => ({
         url: "/pizza/all",
         // params: {
@@ -11,7 +11,7 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
         // },
       }),
     }),
-    getPizzaByName: builder.query<TPizzaData, string>({
+    getPizzaByName: builder.query<PizzaData, string>({
       query: (pizzaName) => ({
         url: `/pizza/${pizzaName}`,
       }),
