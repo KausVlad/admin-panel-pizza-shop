@@ -3,6 +3,7 @@ export type LoginData = {
 };
 
 export type Credentials = {
-  emailOrPhone: string | number;
+  email?: string;
+  phone?: string;
   password: string;
 };

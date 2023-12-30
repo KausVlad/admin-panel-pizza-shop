@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { authEndpoints } from "../store/pizzaShopApi/auth.endpoints";
+import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
+import { useDispatch } from "react-redux";
+import { setUserAccessToken } from "../store/auth/auth.slice";
+import { jwtDecode } from "jwt-decode";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
     emailOrPhone: "",
     password: "",
   });
+
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -15,16 +21,21 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data } = authEndpoints.useLoginQuery({
-      email: credentials.emailOrPhone,
-      password: credentials.password,
-    });
-    console.log(data);
+    try {
+      const data = await login({
+        email: credentials.emailOrPhone,
+        phone: credentials.emailOrPhone,
+        password: credentials.password,
+      }).unwrap();
+      console.log(data, jwtDecode(data.accessToken));
+      dispatch(setUserAccessToken({ accessToken: data.accessToken }));
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
 
-  console.log(credentials);
   return (
     <form onSubmit={handleSubmit}>
       <label>

@@ -10,9 +10,9 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(pizzaShopApi.middleware),
+  devTools: true, //! Remove in production
 });
 
 setupListeners(store.dispatch);

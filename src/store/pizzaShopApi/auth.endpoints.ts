@@ -12,3 +12,5 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useLoginMutation } = authEndpoints;
