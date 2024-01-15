@@ -29,16 +29,28 @@ const baseQueryWithResult = async (
   if (result?.error?.status === 401) {
     console.log("sending refresh token");
     const refreshResult = await baseQuery(
-      "/auth/refreshTokens",
+      {
+        url: "/auth/refreshTokens",
+        credentials: "include",
+        method: "POST",
+      },
       api,
       extraOptions
     );
-    console.log(refreshResult);
+    console.log(refreshResult, "refreshResult");
     if (refreshResult?.data) {
-      const accessToken = (api.getState() as RootState).auth.token;
-      api.dispatch(setUserAccessToken({ accessToken }));
+      api.dispatch(setUserAccessToken(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
+      console.log("logging out");
+      await baseQuery(
+        {
+          url: "/auth/signOut",
+          method: "GET",
+        },
+        api,
+        extraOptions
+      );
       api.dispatch(logout());
     }
   }
