@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserAccessToken } from "../store/auth/auth.slice";
-import { jwtDecode } from "jwt-decode";
+import { RootState } from "../store/store";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
     emailOrPhone: "",
     password: "",
   });
+
+  const { token, email, role, userName } = useSelector(
+    (state: RootState) => state.auth
+  );
+  console.log(token, email, role, userName);
 
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
@@ -29,7 +34,6 @@ export default function LoginForm() {
         phone: credentials.emailOrPhone,
         password: credentials.password,
       }).unwrap();
-      console.log(data, jwtDecode(data.accessToken));
       dispatch(setUserAccessToken({ accessToken: data.accessToken }));
     } catch (error) {
       console.log(error, "error");
