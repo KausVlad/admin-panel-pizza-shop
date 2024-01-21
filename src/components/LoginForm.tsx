@@ -3,6 +3,7 @@ import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAccessToken } from "../store/auth/auth.slice";
 import { RootState } from "../store/store";
+import { useLogout } from "../hooks/useLogout";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
@@ -13,9 +14,9 @@ export default function LoginForm() {
   const { token, email, role, userName } = useSelector(
     (state: RootState) => state.auth
   );
-  console.log(token, email, role, userName);
 
-  const [login ] = useLoginMutation();
+  const { handleLogout } = useLogout();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,30 +41,34 @@ export default function LoginForm() {
     }
   };
 
+  console.log(token, email, role, userName, isLoading);
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email or phone
-        <input
-          required
-          type="text"
-          name="emailOrPhone"
-          value={credentials.emailOrPhone}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Password
-        <input
-          required
-          type="password"
-          name="password"
-          autoComplete="current-password"
-          value={credentials.password}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email or phone
+          <input
+            required
+            type="text"
+            name="emailOrPhone"
+            value={credentials.emailOrPhone}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password
+          <input
+            required
+            type="password"
+            name="password"
+            autoComplete="current-password"
+            value={credentials.password}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+      <button onClick={handleLogout}>Logout</button>
+    </>
   );
 }
