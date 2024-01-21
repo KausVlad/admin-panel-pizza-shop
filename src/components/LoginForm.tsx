@@ -15,7 +15,7 @@ export default function LoginForm() {
   );
   console.log(token, email, role, userName);
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login ] = useLoginMutation();
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

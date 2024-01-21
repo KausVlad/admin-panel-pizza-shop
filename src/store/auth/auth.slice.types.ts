@@ -2,6 +2,6 @@ import { JwtPayload } from "jwt-decode";
 
 export type CustomJwtPayload = JwtPayload & {
   email: string;
-  role: string;
+  role: "ADMIN" | "MANAGER" | "USER";
   userName: string;
 };

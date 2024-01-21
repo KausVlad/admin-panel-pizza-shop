@@ -6,7 +6,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     email: null as string | null,
-    role: null as string | null,
+    role: null as "ADMIN" | "MANAGER" | "USER" | null,
     token: null as string | null,
     userName: null as string | null,
   },
