@@ -21,7 +21,10 @@ const authSlice = createSlice({
       state.role = role;
     },
     logout: (state) => {
-      state.token = "";
+      state.token = null;
+      state.email = null;
+      state.role = null;
+      state.userName = null;
     },
   },
 });
