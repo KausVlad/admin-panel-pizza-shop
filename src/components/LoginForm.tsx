@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserAccessToken } from "../store/auth/auth.slice";
+import { setAuth, setUserAccessToken } from "../store/auth/auth.slice";
 import { RootState } from "../store/store";
 import { useLogout } from "../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
@@ -15,6 +16,7 @@ export default function LoginForm() {
   const { handleLogout } = useLogout();
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,6 +35,8 @@ export default function LoginForm() {
         password: credentials.password,
       }).unwrap();
       dispatch(setUserAccessToken(accessToken));
+      dispatch(setAuth({ isAuth: true }));
+      navigate("/");
     } catch (error) {
       console.error(error, "error");
     }

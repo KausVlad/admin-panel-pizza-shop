@@ -3,6 +3,7 @@ import { JwtPayload } from "jwt-decode";
 export type authState = {
   userInfo: userInfo;
   token: string | null;
+  isAuth: boolean;
 };
 
 export type userInfo = {

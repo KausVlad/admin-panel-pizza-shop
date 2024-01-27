@@ -1,17 +1,21 @@
 import { useAuth } from "../hooks/useAuth";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
 export default function RequireAuth() {
   const { isLoading, localAuth } = useAuth();
-  const location = useLocation();
+  const { handleLogout } = useLogout();
 
   console.log(isLoading, localAuth);
 
   return isLoading ? (
     <>Loading...</>
   ) : localAuth ? (
-    <Outlet />
+    <>
+      <button onClick={handleLogout}>Logout</button>
+      <Outlet />
+    </>
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/login" />
   );
 }
