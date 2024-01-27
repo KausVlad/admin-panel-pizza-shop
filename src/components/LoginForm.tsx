@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAccessToken } from "../store/auth/auth.slice";
 import { RootState } from "../store/store";
 import { useLogout } from "../hooks/useLogout";
-import { useAuth } from "../hooks/useAuth";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
