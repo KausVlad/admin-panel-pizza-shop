@@ -31,13 +31,12 @@ const baseQueryWithResult = async (
     const refreshResult = await baseQuery(
       {
         url: "/auth/refreshTokens",
-        credentials: "include",
         method: "POST",
       },
       api,
       extraOptions
     );
-    console.log(refreshResult, "refreshResult");
+    console.log(refreshResult);
     if (refreshResult?.data) {
       api.dispatch(setUserAccessToken(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);

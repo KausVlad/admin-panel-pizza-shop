@@ -11,7 +11,7 @@ export function useLogout() {
       await signOut();
       dispatch(logout());
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

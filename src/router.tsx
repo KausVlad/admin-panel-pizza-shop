@@ -3,19 +3,25 @@ import AppLayout from "./components/ui/AppLayout";
 import Pizzas from "./components/pages/Pizzas";
 import PizzaDetails from "./components/PizzaDetails";
 import Login from "./components/pages/Login";
+import RequireAuth from "./components/RequireAuth";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <AppLayout />,
+    element: <RequireAuth />,
     children: [
       {
-        path: "pizza",
-        element: <Pizzas />,
-      },
-      {
-        path: "pizza/:pizzaName",
-        element: <PizzaDetails />,
+        path: "/",
+        element: <AppLayout />,
+        children: [
+          {
+            path: "pizza",
+            element: <Pizzas />,
+          },
+          {
+            path: "pizza/:pizzaName",
+            element: <PizzaDetails />,
+          },
+        ],
       },
     ],
   },

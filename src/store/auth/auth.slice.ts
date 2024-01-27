@@ -1,30 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CustomJwtPayload, authState } from "./auth.slice.types";
 import { jwtDecode } from "jwt-decode";
-import { CustomJwtPayload } from "./auth.slice.types";
+
+const initialState: authState = {
+  userInfo: {
+    email: null,
+    role: null,
+    userName: null,
+  },
+  token: null,
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    email: null as string | null,
-    role: null as "ADMIN" | "MANAGER" | "USER" | null,
-    token: null as string | null,
-    userName: null as string | null,
-  },
+  initialState,
   reducers: {
     setUserAccessToken: (state, action) => {
-      const { accessToken } = action.payload;
-      const { email, role, userName } =
-        jwtDecode<CustomJwtPayload>(accessToken);
-      state.token = accessToken;
-      state.email = email;
-      state.userName = userName;
-      state.role = role;
+      const userInfo = jwtDecode<CustomJwtPayload>(action.payload.accessToken);
+      state.userInfo = userInfo;
+      state.token = action.payload.accessToken;
     },
     logout: (state) => {
       state.token = null;
-      state.email = null;
-      state.role = null;
-      state.userName = null;
+      state.userInfo = {
+        email: null,
+        role: null,
+        userName: null,
+      };
     },
   },
 });
