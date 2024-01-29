@@ -1,19 +1,30 @@
-import { useEffect } from "react";
-import { setUserAccessToken, setUserInfo } from "../store/auth/auth.slice";
-import { useRefreshTokensQuery } from "../store/pizzaShopApi/auth.endpoints";
+import {
+  setAuth,
+  setUserAccessToken,
+  setUserInfo,
+} from "../store/auth/auth.slice";
+import { useRefreshTokensMutation } from "../store/pizzaShopApi/auth.endpoints";
 import { useDispatch } from "react-redux";
 import { parseLoginData } from "../utils/parseLoginData";
 
 export function useAuth() {
-  const { data, isLoading } = useRefreshTokensQuery();
+  const [refreshTokens, { isLoading }] = useRefreshTokensMutation();
   const dispatch = useDispatch();
-  const { localAuth, userInfo } = parseLoginData(data);
 
-  useEffect(() => {
-    if (data && userInfo) {
-      dispatch(setUserAccessToken(data));
-      dispatch(setUserInfo({ userInfo }));
+  const refreshAuth = async () => {
+    try {
+      const accessToken = await refreshTokens().unwrap();
+      const { localAuth, userInfo } = parseLoginData(accessToken);
+      dispatch(setUserAccessToken(accessToken));
+      userInfo && dispatch(setUserInfo({ userInfo }));
+      dispatch(setAuth({ isAuth: localAuth }));
+    } catch (error) {
+      console.error(error);
     }
-  }, [data, dispatch, userInfo]);
-  return { data, isLoading, localAuth };
+  };
+
+  return {
+    refreshAuth,
+    isLoading,
+  };
 }

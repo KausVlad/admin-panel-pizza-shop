@@ -25,11 +25,12 @@ const authSlice = createSlice({
         userName: action.payload.userInfo.userName,
       };
     },
-    setAuth: (state, action) => {
+    setAuth: (state, action: { payload: { isAuth: boolean } }) => {
       state.isAuth = action.payload.isAuth;
     },
     logout: (state) => {
       state.token = null;
+      state.isAuth = false;
       state.userInfo = {
         email: null,
         role: null,

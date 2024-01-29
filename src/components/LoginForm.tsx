@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuth, setUserAccessToken } from "../store/auth/auth.slice";
-import { RootState } from "../store/store";
+import { useDispatch } from "react-redux";
+import {
+  setAuth,
+  setUserAccessToken,
+  setUserInfo,
+} from "../store/auth/auth.slice";
 import { useLogout } from "../hooks/useLogout";
 import { useNavigate } from "react-router-dom";
+import { parseLoginData } from "../utils/parseLoginData";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
@@ -12,9 +16,9 @@ export default function LoginForm() {
     password: "",
   });
 
-  const { token } = useSelector((state: RootState) => state.auth);
+  // const { token } = useSelector((state: RootState) => state.auth);
   const { handleLogout } = useLogout();
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,8 +38,13 @@ export default function LoginForm() {
         phone: credentials.emailOrPhone,
         password: credentials.password,
       }).unwrap();
+      const { localAuth, userInfo } = parseLoginData(accessToken);
+
+      console.log(accessToken, localAuth, userInfo);
       dispatch(setUserAccessToken(accessToken));
-      dispatch(setAuth({ isAuth: true }));
+      userInfo && dispatch(setUserInfo({ userInfo }));
+      dispatch(setAuth({ isAuth: localAuth }));
+
       navigate("/");
     } catch (error) {
       console.error(error, "error");
