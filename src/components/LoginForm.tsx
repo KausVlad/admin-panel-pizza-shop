@@ -18,7 +18,7 @@ export default function LoginForm() {
 
   // const { token } = useSelector((state: RootState) => state.auth);
   const { handleLogout } = useLogout();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,7 +40,6 @@ export default function LoginForm() {
       }).unwrap();
       const { localAuth, userInfo } = parseLoginData(accessToken);
 
-      console.log(accessToken, localAuth, userInfo);
       dispatch(setUserAccessToken(accessToken));
       userInfo && dispatch(setUserInfo({ userInfo }));
       dispatch(setAuth({ isAuth: localAuth }));

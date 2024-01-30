@@ -8,11 +8,11 @@ import { useEffect, useState } from "react";
 export default function RequireAuth() {
   const [isLocalLoading, setLocalLoading] = useState(true);
   const { token, isAuth } = useSelector((state: RootState) => state.auth);
-  const { isLoading, refreshAuth } = useAuth();
+  const { refreshAuth } = useAuth();
   const { handleLogout } = useLogout();
 
   useEffect(() => {
-    // let isMounted = true;
+    let isMounted = true;
 
     const verifyRefreshToken = async () => {
       try {
@@ -20,23 +20,18 @@ export default function RequireAuth() {
       } catch (error) {
         console.error(error);
       } finally {
-        setLocalLoading(false);
+        isMounted && setLocalLoading(false);
       }
     };
 
     !token ? verifyRefreshToken() : setLocalLoading(false);
 
-    // return () => (isMounted = false);
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(
-    isLocalLoading,
-    token ? token.slice(-11) : null,
-    isAuth,
-    isLoading
-  );
-
-  // return <Outlet />;
   return isLocalLoading ? (
     <>Loading...</>
   ) : isAuth ? (
