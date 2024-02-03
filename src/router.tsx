@@ -4,6 +4,7 @@ import Pizzas from "./components/pages/Pizzas";
 import PizzaDetails from "./components/PizzaDetails";
 import Login from "./components/pages/Login";
 import RequireAuth from "./components/RequireAuth";
+import AddPizza from "./components/pages/AddPizza";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
           {
             path: "pizza",
             element: <Pizzas />,
+          },
+          {
+            path: "pizza/add",
+            element: <AddPizza />,
           },
           {
             path: "pizza/:pizzaName",
