@@ -8,29 +8,33 @@ export default function PizzaList() {
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Price</th>
-            <th>Weigh</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((pizza) => (
-            <UniversalProductCell
-              key={pizza.id}
-              id={pizza.id}
-              productName={pizza.pizzaName}
-              productImage={"image(WIP)"}
-              portion={pizza.weightStandard}
-              price={pizza.priceStandard}
-            />
-          ))}
-        </tbody>
-      </table>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Price</th>
+              <th>Weigh</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.map((pizza) => (
+              <UniversalProductCell
+                key={pizza.id}
+                id={pizza.id}
+                productName={pizza.pizzaName}
+                productImage={"image(WIP)"}
+                portion={pizza.weightStandard}
+                price={pizza.priceStandard}
+              />
+            ))}
+          </tbody>
+        </table>
+      )}
       <NavLink to="/pizza/add">Add new pizza</NavLink>
     </>
   );
