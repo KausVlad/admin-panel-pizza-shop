@@ -1,5 +1,5 @@
 import { pizzaShopApi } from "./pizzaShop.api";
-import { PizzaData } from "./pizza.endpoints.types";
+import { PizzaData, PizzaDataMutation } from "./pizza.endpoints.types";
 
 export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,6 +14,13 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
     getPizzaByName: builder.query<PizzaData, string>({
       query: (pizzaName) => ({
         url: `/pizza/${pizzaName}`,
+      }),
+    }),
+    addPizza: builder.mutation<PizzaData, PizzaDataMutation>({
+      query: (pizza) => ({
+        url: "/pizza/add",
+        method: "POST",
+        body: pizza,
       }),
     }),
   }),

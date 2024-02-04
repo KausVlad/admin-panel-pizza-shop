@@ -18,3 +18,17 @@ export type PizzaData = {
     attributeName: string;
   }[];
 };
+
+export type PizzaDataMutation = {
+  pizzaName: string;
+  weightStandard: number;
+  priceStandard: number;
+  doughCrust: string;
+  pizzaGroup: string;
+  ingredients: {
+    ingredientName: string;
+  }[];
+  pizzaAttributes: {
+    attributeName: string;
+  }[];
+};
