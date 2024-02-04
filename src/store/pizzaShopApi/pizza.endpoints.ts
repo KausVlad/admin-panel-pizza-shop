@@ -26,4 +26,8 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
   }),
 });
 
-export const { useGetPizzasQuery, useGetPizzaByNameQuery } = pizzaEndpoints;
+export const {
+  useGetPizzasQuery,
+  useGetPizzaByNameQuery,
+  useAddPizzaMutation,
+} = pizzaEndpoints;

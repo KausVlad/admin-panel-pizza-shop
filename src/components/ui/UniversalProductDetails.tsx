@@ -1,12 +1,42 @@
 import { useEffect, useState } from "react";
-import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
+import {
+  PizzaData,
+  PizzaDataMutation,
+} from "../../store/pizzaShopApi/pizza.endpoints.types";
+import {
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  MutationDefinition,
+} from "@reduxjs/toolkit/query";
+import {
+  BaseQueryApi,
+  QueryReturnValue,
+} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 type UniversalProductDetailsProps = {
   data?: PizzaData | undefined;
+  serverMutation?: MutationTrigger<
+    MutationDefinition<
+      PizzaDataMutation,
+      (
+        args: string | FetchArgs,
+        api: BaseQueryApi,
+        extraOptions: Record<string, unknown>
+      ) => Promise<
+        QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
+      >,
+      "Test",
+      PizzaData,
+      "pizzaShopApi"
+    >
+  >;
 };
 
 export default function UniversalProductDetails({
   data,
+  serverMutation,
 }: UniversalProductDetailsProps) {
   const [pizzaDetails, setPizzaDetails] = useState({
     pizzaName: "",
@@ -50,9 +80,24 @@ export default function UniversalProductDetails({
     }));
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (serverMutation) {
+      try {
+        await serverMutation({
+          ...pizzaDetails,
+          ingredients: pizzaDetails.ingredients.split(", "),
+          pizzaAttributes: pizzaDetails.pizzaAttributes.split(", "),
+        }).unwrap();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         {data ? (
           <>
             <label htmlFor="id">ID</label>
@@ -73,9 +118,9 @@ export default function UniversalProductDetails({
             />
           </>
         ) : null}
-
         <label htmlFor="pizzaName">Pizza Name</label>
         <input
+          required
           type="text"
           id="pizzaName"
           value={pizzaDetails?.pizzaName}
@@ -83,16 +128,24 @@ export default function UniversalProductDetails({
         />
         <label htmlFor="priceStandard">Price for standard</label>
         <input
+          required
           type="number"
           id="priceStandard"
           value={pizzaDetails?.priceStandard}
           onChange={handleInputChange}
         />
         <label htmlFor="weightStandard">Weight for standard</label>
-        <input type="number" id="weightStandard" onChange={handleInputChange} />
+        <input
+          required
+          type="number"
+          id="weightStandard"
+          value={pizzaDetails?.weightStandard}
+          onChange={handleInputChange}
+        />
         <label htmlFor="doughCrust">Dough Crust</label>
         <label htmlFor="ingredients">Ingredients</label>
         <input
+          required
           type="text"
           id="ingredients"
           value={pizzaDetails?.ingredients}
@@ -101,6 +154,7 @@ export default function UniversalProductDetails({
         <label htmlFor="doughCrust">Dough Crust</label>
         <label htmlFor="pizzaAttributes">Pizza Attributes</label>
         <input
+          required
           type="text"
           id="pizzaAttributes"
           value={pizzaDetails?.pizzaAttributes}
@@ -108,6 +162,7 @@ export default function UniversalProductDetails({
         />
         <label htmlFor="doughCrust">Dough Crust</label>
         <select
+          required
           name="doughCrust"
           id="doughCrust"
           value={pizzaDetails.doughCrust}
@@ -131,6 +186,7 @@ export default function UniversalProductDetails({
           <option value="FINEST">Finest</option>
           <option value="GOURMET">Gourmet</option>
         </select>
+        {serverMutation ? <button type="submit">Submit</button> : null}
       </form>
     </>
   );

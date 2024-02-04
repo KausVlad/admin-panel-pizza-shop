@@ -25,10 +25,6 @@ export type PizzaDataMutation = {
   priceStandard: number;
   doughCrust: string;
   pizzaGroup: string;
-  ingredients: {
-    ingredientName: string;
-  }[];
-  pizzaAttributes: {
-    attributeName: string;
-  }[];
+  ingredients: string[];
+  pizzaAttributes: string[];
 };
