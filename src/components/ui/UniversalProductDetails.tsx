@@ -1,37 +1,19 @@
 import { useEffect, useState } from "react";
-import {
-  PizzaData,
-  PizzaDataMutation,
-} from "../../store/pizzaShopApi/pizza.endpoints.types";
-import {
-  FetchArgs,
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-  MutationDefinition,
-} from "@reduxjs/toolkit/query";
-import {
-  BaseQueryApi,
-  QueryReturnValue,
-} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 
 type UniversalProductDetailsProps = {
   data?: PizzaData | undefined;
-  serverMutation?: MutationTrigger<
-    MutationDefinition<
-      PizzaDataMutation,
-      (
-        args: string | FetchArgs,
-        api: BaseQueryApi,
-        extraOptions: Record<string, unknown>
-      ) => Promise<
-        QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
-      >,
-      "Test",
-      PizzaData,
-      "pizzaShopApi"
-    >
-  >;
+  serverMutation?: (pizzaDetails: PizzaDetails) => void;
+};
+
+export type PizzaDetails = {
+  pizzaName: string;
+  priceStandard: number;
+  weightStandard: number;
+  ingredients: string;
+  pizzaAttributes: string;
+  doughCrust: string;
+  pizzaGroup: string;
 };
 
 export default function UniversalProductDetails({
@@ -83,15 +65,7 @@ export default function UniversalProductDetails({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (serverMutation) {
-      try {
-        await serverMutation({
-          ...pizzaDetails,
-          ingredients: pizzaDetails.ingredients.split(", "),
-          pizzaAttributes: pizzaDetails.pizzaAttributes.split(", "),
-        }).unwrap();
-      } catch (error) {
-        console.error(error);
-      }
+      serverMutation(pizzaDetails);
     }
   };
 
