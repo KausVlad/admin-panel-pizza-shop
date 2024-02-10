@@ -16,5 +16,5 @@ export default function PizzaDetails() {
     return <div>Loading...</div>;
   }
 
-  return <UniversalProductDetails data={data} />;
+  return <UniversalProductDetails data={data} addOrEdit="edit" />;
 }

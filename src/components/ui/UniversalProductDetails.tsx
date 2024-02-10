@@ -4,6 +4,7 @@ import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 type UniversalProductDetailsProps = {
   data?: PizzaData | undefined;
   serverMutation?: (pizzaDetails: PizzaDetails) => void;
+  addOrEdit: "add" | "edit";
 };
 
 export type PizzaDetails = {
@@ -19,6 +20,7 @@ export type PizzaDetails = {
 export default function UniversalProductDetails({
   data,
   serverMutation,
+  addOrEdit,
 }: UniversalProductDetailsProps) {
   const [pizzaDetails, setPizzaDetails] = useState({
     pizzaName: "",
@@ -160,7 +162,7 @@ export default function UniversalProductDetails({
           <option value="FINEST">Finest</option>
           <option value="GOURMET">Gourmet</option>
         </select>
-        {serverMutation ? <button type="submit">Submit</button> : null}
+        {serverMutation ? <button type="submit">{addOrEdit}</button> : null}
       </form>
     </>
   );

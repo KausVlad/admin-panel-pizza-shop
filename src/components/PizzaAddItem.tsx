@@ -20,7 +20,10 @@ export default function PizzaAddItem() {
 
   return (
     <>
-      <UniversalProductDetails serverMutation={serverMutation} />
+      <UniversalProductDetails
+        serverMutation={serverMutation}
+        addOrEdit="add"
+      />
     </>
   );
 }
