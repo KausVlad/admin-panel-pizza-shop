@@ -28,3 +28,5 @@ export type PizzaDataMutation = {
   ingredients: string[];
   pizzaAttributes: string[];
 };
+
+export type PizzaDataMutationPartial = Partial<PizzaDataMutation>;

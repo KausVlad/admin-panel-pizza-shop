@@ -3,11 +3,11 @@ import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 
 type UniversalProductDetailsProps = {
   data?: PizzaData | undefined;
-  serverMutation?: (pizzaDetails: PizzaDetails) => void;
+  serverMutation?: (pizzaDetails: PizzaDetailsType) => void;
   addOrEdit: "add" | "edit";
 };
 
-export type PizzaDetails = {
+export type PizzaDetailsType = {
   pizzaName: string;
   priceStandard: number;
   weightStandard: number;
@@ -118,7 +118,6 @@ export default function UniversalProductDetails({
           value={pizzaDetails?.weightStandard}
           onChange={handleInputChange}
         />
-        <label htmlFor="doughCrust">Dough Crust</label>
         <label htmlFor="ingredients">Ingredients</label>
         <input
           required
@@ -127,7 +126,6 @@ export default function UniversalProductDetails({
           value={pizzaDetails?.ingredients}
           onChange={handleInputChange}
         />
-        <label htmlFor="doughCrust">Dough Crust</label>
         <label htmlFor="pizzaAttributes">Pizza Attributes</label>
         <input
           required

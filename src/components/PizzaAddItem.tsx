@@ -1,12 +1,12 @@
 import { useAddPizzaMutation } from "../store/pizzaShopApi/pizza.endpoints";
 import UniversalProductDetails, {
-  PizzaDetails,
+  PizzaDetailsType,
 } from "./ui/UniversalProductDetails";
 
 export default function PizzaAddItem() {
   const [addPizza] = useAddPizzaMutation();
 
-  const serverMutation = async (pizzaDetails: PizzaDetails) => {
+  const serverMutationAddPizza = async (pizzaDetails: PizzaDetailsType) => {
     try {
       await addPizza({
         ...pizzaDetails,
@@ -21,7 +21,7 @@ export default function PizzaAddItem() {
   return (
     <>
       <UniversalProductDetails
-        serverMutation={serverMutation}
+        serverMutation={serverMutationAddPizza}
         addOrEdit="add"
       />
     </>

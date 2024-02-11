@@ -1,5 +1,9 @@
 import { pizzaShopApi } from "./pizzaShop.api";
-import { PizzaData, PizzaDataMutation } from "./pizza.endpoints.types";
+import {
+  PizzaData,
+  PizzaDataMutation,
+  PizzaDataMutationPartial,
+} from "./pizza.endpoints.types";
 
 export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,6 +27,16 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
         body: pizza,
       }),
     }),
+    updatePizza: builder.mutation<
+      PizzaData,
+      { pizzaName: string; pizza: PizzaDataMutationPartial }
+    >({
+      query: ({ pizzaName, pizza }) => ({
+        url: `/pizza/${pizzaName}`,
+        method: "PATCH",
+        body: pizza,
+      }),
+    }),
   }),
 });
 
@@ -30,4 +44,5 @@ export const {
   useGetPizzasQuery,
   useGetPizzaByNameQuery,
   useAddPizzaMutation,
+  useUpdatePizzaMutation,
 } = pizzaEndpoints;
