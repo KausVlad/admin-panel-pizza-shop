@@ -35,7 +35,10 @@ export function UniversalProductDetails({
 
   useEffect(() => {
     if (data) {
-      setPizzaDetails(getConvertedPizzaData(data));
+      setPizzaDetails((prevDetails) => ({
+        ...prevDetails,
+        ...getConvertedPizzaData(data),
+      }));
     }
   }, [data]);
 
