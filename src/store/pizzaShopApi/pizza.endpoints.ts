@@ -28,6 +28,7 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
         method: "POST",
         body: pizza,
       }),
+      invalidatesTags: ["Pizzas"],
     }),
     updatePizza: builder.mutation<
       PizzaData,
@@ -40,6 +41,13 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Pizza", "Pizzas"],
     }),
+    deletePizza: builder.mutation<PizzaData, string>({
+      query: (pizzaName) => ({
+        url: `/pizza/${pizzaName}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Pizzas"],
+    }),
   }),
 });
 
@@ -48,4 +56,5 @@ export const {
   useGetPizzaByNameQuery,
   useAddPizzaMutation,
   useUpdatePizzaMutation,
+  useDeletePizzaMutation,
 } = pizzaEndpoints;
