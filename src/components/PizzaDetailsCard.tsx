@@ -14,6 +14,7 @@ export function PizzaDetailsCard() {
   const { pizzaName: paramsPizzaName } = useParams();
   const { data, isLoading } = useGetPizzaByNameQuery(paramsPizzaName || "");
   const [updatePizza] = useUpdatePizzaMutation();
+  console.log(data);
 
   const serverMutationUpdate = async (
     pizzaDetails: PizzaDetailsType,

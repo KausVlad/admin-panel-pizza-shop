@@ -20,6 +20,7 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
       query: (pizzaName) => ({
         url: `/pizza/${pizzaName}`,
       }),
+      providesTags: ["Pizza"],
     }),
     addPizza: builder.mutation<PizzaData, PizzaDataMutation>({
       query: (pizza) => ({
