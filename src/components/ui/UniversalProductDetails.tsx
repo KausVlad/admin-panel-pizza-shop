@@ -17,7 +17,7 @@ type UniversalProductDetailsProps = {
   addOrEdit: "add" | "edit";
 };
 
-export default function UniversalProductDetails({
+export function UniversalProductDetails({
   data,
   serverMutation,
   addOrEdit,

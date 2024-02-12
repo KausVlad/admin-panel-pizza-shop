@@ -14,6 +14,7 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
         //   ingredientName,
         // },
       }),
+      providesTags: ["Pizzas"],
     }),
     getPizzaByName: builder.query<PizzaData, string>({
       query: (pizzaName) => ({
@@ -36,6 +37,7 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
         method: "PATCH",
         body: pizza,
       }),
+      invalidatesTags: ["Pizza", "Pizzas"],
     }),
   }),
 });

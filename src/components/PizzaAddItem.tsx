@@ -1,6 +1,7 @@
 import { useAddPizzaMutation } from "../store/pizzaShopApi/pizza.endpoints";
-import UniversalProductDetails, {
+import {
   PizzaDetailsType,
+  UniversalProductDetails,
 } from "./ui/UniversalProductDetails";
 
 export default function PizzaAddItem() {

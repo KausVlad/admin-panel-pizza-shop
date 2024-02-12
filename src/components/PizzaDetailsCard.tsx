@@ -3,8 +3,9 @@ import {
   useGetPizzaByNameQuery,
   useUpdatePizzaMutation,
 } from "../store/pizzaShopApi/pizza.endpoints";
-import UniversalProductDetails, {
+import {
   PizzaDetailsType,
+  UniversalProductDetails,
 } from "./ui/UniversalProductDetails";
 import { PizzaData } from "../store/pizzaShopApi/pizza.endpoints.types";
 import { getPizzaDataMutationPartial } from "../utils/getPizzaDataMutationPartial";
