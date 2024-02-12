@@ -1,5 +1,5 @@
 import PizzaAddItem from "../PizzaAddItem";
 
-export default function AddPizza() {
+export function AddPizza() {
   return <PizzaAddItem />;
 }

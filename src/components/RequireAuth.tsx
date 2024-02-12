@@ -5,7 +5,7 @@ import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-export default function RequireAuth() {
+export function RequireAuth() {
   const [isLocalLoading, setLocalLoading] = useState(true);
   const { token, isAuth } = useSelector((state: RootState) => state.auth);
   const { refreshAuth } = useAuth();

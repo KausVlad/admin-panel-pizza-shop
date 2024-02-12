@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 
-type UniversalProductDetailsProps = {
-  data?: PizzaData | undefined;
-  serverMutation?: (pizzaDetails: PizzaDetailsType) => void;
-  addOrEdit: "add" | "edit";
-};
-
 export type PizzaDetailsType = {
   pizzaName: string;
   priceStandard: number;
@@ -15,6 +9,12 @@ export type PizzaDetailsType = {
   pizzaAttributes: string;
   doughCrust: string;
   pizzaGroup: string;
+};
+
+type UniversalProductDetailsProps = {
+  data?: PizzaData | undefined;
+  serverMutation?: (pizzaDetails: PizzaDetailsType, data?: PizzaData) => void;
+  addOrEdit: "add" | "edit";
 };
 
 export default function UniversalProductDetails({
@@ -67,7 +67,7 @@ export default function UniversalProductDetails({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (serverMutation) {
-      serverMutation(pizzaDetails);
+      serverMutation(pizzaDetails, data);
     }
   };
 

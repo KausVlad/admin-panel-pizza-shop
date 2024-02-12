@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import LeftNav from "../LeftNav";
+import { LeftNav } from "../LeftNav";
 
-export default function AppLayout() {
+export function AppLayout() {
   return (
     <div className="flex">
       <LeftNav />

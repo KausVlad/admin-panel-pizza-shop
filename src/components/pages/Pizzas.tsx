@@ -1,5 +1,5 @@
 import PizzaList from "../PizzaList";
 
-export default function Pizzas() {
+export function Pizzas() {
   return <PizzaList />;
 }
