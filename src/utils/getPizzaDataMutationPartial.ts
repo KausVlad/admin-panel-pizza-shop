@@ -3,24 +3,13 @@ import {
   PizzaData,
   PizzaDataMutationPartial,
 } from "../store/pizzaShopApi/pizza.endpoints.types";
+import { getConvertedPizzaData } from "./getConvertedPizzaData";
 
 export const getPizzaDataMutationPartial = (
   pizzaDetails: PizzaDetailsType,
   data: PizzaData
 ) => {
-  const convertedData: PizzaDetailsType = {
-    pizzaName: data.pizzaName,
-    ingredients: data?.ingredients
-      .map((ingredient) => ingredient.ingredientName)
-      .join(", "),
-    pizzaAttributes: data?.pizzaAttributes
-      .map((attribute) => attribute.attributeName)
-      .join(", "),
-    priceStandard: data.priceStandard,
-    weightStandard: data.weightStandard,
-    doughCrust: data.doughCrust,
-    pizzaGroup: data.pizzaGroup,
-  };
+  const convertedData: PizzaDetailsType = getConvertedPizzaData(data);
   let pizzaDataMutationPartial: PizzaDataMutationPartial = {};
 
   Object.keys(pizzaDetails).forEach((key) => {

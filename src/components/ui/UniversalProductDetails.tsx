@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
+import { getConvertedPizzaData } from "../../utils/getConvertedPizzaData";
 
 export type PizzaDetailsType = {
   pizzaName: string;
@@ -34,20 +35,7 @@ export function UniversalProductDetails({
 
   useEffect(() => {
     if (data) {
-      setPizzaDetails({
-        pizzaName: data.pizzaName,
-        ingredients: data?.ingredients
-          .map((ingredient) => ingredient.ingredientName)
-          .join(", "),
-        pizzaAttributes: data?.pizzaAttributes
-          .map((attribute) => attribute.attributeName)
-          .join(", "),
-        priceStandard: data.priceStandard,
-        weightStandard: data.weightStandard,
-
-        doughCrust: data.doughCrust,
-        pizzaGroup: data.pizzaGroup,
-      });
+      setPizzaDetails(getConvertedPizzaData(data));
     }
   }, [data]);
 
