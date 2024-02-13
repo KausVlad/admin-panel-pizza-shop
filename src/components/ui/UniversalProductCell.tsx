@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { DeleteModal } from "./DeleteModal";
 
 type UniversalProductCellProps = {
   id: number;
@@ -24,6 +25,9 @@ export default function UniversalProductCell({
       <td>{portion}</td>
       <td>
         <Link to={`/pizza/${productName}`}>details</Link>
+      </td>
+      <td>
+        <DeleteModal productName={productName} />
       </td>
     </tr>
   );
