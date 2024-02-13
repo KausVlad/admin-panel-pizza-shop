@@ -20,7 +20,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ productName }) => {
 
   const handleDelete = () => {
     deletePizza(productName);
-    // isSuccess && toggleDialog();
+    toggleDialog();
   };
 
   return (

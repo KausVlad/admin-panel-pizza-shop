@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 import { getConvertedPizzaData } from "../../utils/getConvertedPizzaData";
+import { DeleteModal } from "./DeleteModal";
 
 export type PizzaDetailsType = {
   pizzaName: string;
@@ -152,6 +153,9 @@ export function UniversalProductDetails({
           <option value="GOURMET">Gourmet</option>
         </select>
         {serverMutation ? <button type="submit">{addOrEdit}</button> : null}
+        {addOrEdit === "edit" ? (
+          <DeleteModal productName={pizzaDetails.pizzaName} />
+        ) : null}
       </form>
     </>
   );
