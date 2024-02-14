@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetPizzaByNameQuery,
   useUpdatePizzaMutation,
@@ -12,8 +12,11 @@ import { getPizzaDataMutationPartial } from "../utils/getPizzaDataMutationPartia
 
 export function PizzaDetailsCard() {
   const { pizzaName: paramsPizzaName } = useParams();
-  const { data, isLoading } = useGetPizzaByNameQuery(paramsPizzaName || "");
+  const { data, isLoading, isError } = useGetPizzaByNameQuery(
+    paramsPizzaName || ""
+  );
   const [updatePizza] = useUpdatePizzaMutation();
+  const navigate = useNavigate();
 
   const serverMutationUpdate = async (
     pizzaDetails: PizzaDetailsType,
@@ -24,7 +27,6 @@ export function PizzaDetailsCard() {
         pizzaDetails,
         data
       );
-      console.log("pizzaDataMutationPartial", pizzaDataMutationPartial); // TODO remove
 
       if (Object.keys(pizzaDataMutationPartial).length > 0) {
         try {
@@ -38,6 +40,11 @@ export function PizzaDetailsCard() {
       }
     }
   };
+
+  if (isError) {
+    navigate("/pizza");
+    return null;
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -6,7 +6,7 @@ type DeleteModalProps = {
 };
 
 export const DeleteModal: FC<DeleteModalProps> = ({ productName }) => {
-  const [deletePizza, { isSuccess }] = useDeletePizzaMutation();
+  const [deletePizza] = useDeletePizzaMutation();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   function toggleDialog() {
