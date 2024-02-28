@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 import { getConvertedPizzaData } from "../../utils/getConvertedPizzaData";
 import { DeleteModal } from "./DeleteModal";
+import { PizzaIngredientMenuDialog } from "./PizzaIngredientMenuDialog";
 
 export type PizzaDetailsType = {
   pizzaName: string;
   priceStandard: number;
   weightStandard: number;
-  ingredients: string;
+  ingredients: string[];
   pizzaAttributes: string;
   doughCrust: string;
   pizzaGroup: string;
@@ -24,15 +25,17 @@ export function UniversalProductDetails({
   serverMutation,
   addOrEdit,
 }: UniversalProductDetailsProps) {
-  const [pizzaDetails, setPizzaDetails] = useState({
+  const [pizzaDetails, setPizzaDetails] = useState<PizzaDetailsType>({
     pizzaName: "",
     priceStandard: 0,
     weightStandard: 0,
-    ingredients: "",
+    ingredients: [],
     pizzaAttributes: "",
     doughCrust: "",
     pizzaGroup: "",
   });
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     if (data) {
@@ -62,6 +65,25 @@ export function UniversalProductDetails({
       serverMutation(pizzaDetails, data);
     }
   };
+
+  const handleDeleteIngredient = (ingredient: string) => {
+    const updatedIngredients = pizzaDetails.ingredients.filter(
+      (item) => item !== ingredient
+    );
+    setPizzaDetails({
+      ...pizzaDetails,
+      ingredients: updatedIngredients,
+    });
+  };
+
+  function toggleDialog(ref: React.RefObject<HTMLDialogElement>) {
+    if (!ref.current) {
+      return;
+    }
+    ref.current.hasAttribute("open")
+      ? ref.current.close()
+      : ref.current.showModal();
+  }
 
   return (
     <>
@@ -110,14 +132,30 @@ export function UniversalProductDetails({
           value={pizzaDetails?.weightStandard}
           onChange={handleInputChange}
         />
-        <label htmlFor="ingredients">Ingredients</label>
-        <input
-          required
-          type="text"
-          id="ingredients"
-          value={pizzaDetails?.ingredients}
-          onChange={handleInputChange}
-        />
+        <div>
+          <label className="font-medium">Ingredients</label>
+          {pizzaDetails.ingredients.map((ingredient, index) => (
+            <div key={index}>
+              <span onClick={() => toggleDialog(dialogRef)}>{ingredient}</span>
+              <button
+                type="button"
+                onClick={() => handleDeleteIngredient(ingredient)}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={() => toggleDialog(dialogRef)}>
+            Add Ingredient
+          </button>
+          <PizzaIngredientMenuDialog
+            ref={dialogRef}
+            toggleDialog={() => toggleDialog(dialogRef)}
+            pizzaDetails={pizzaDetails}
+            setPizzaDetails={setPizzaDetails}
+          />
+        </div>
+
         <label htmlFor="pizzaAttributes">Pizza Attributes</label>
         <input
           required

@@ -11,7 +11,7 @@ export default function PizzaAddItem() {
     try {
       await addPizza({
         ...pizzaDetails,
-        ingredients: pizzaDetails.ingredients.split(", "),
+        ingredients: pizzaDetails.ingredients,
         pizzaAttributes: pizzaDetails.pizzaAttributes.split(", "),
       }).unwrap();
     } catch (error) {

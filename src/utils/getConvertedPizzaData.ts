@@ -3,9 +3,9 @@ import { PizzaData } from "../store/pizzaShopApi/pizza.endpoints.types";
 export const getConvertedPizzaData = (data: PizzaData) => {
   return {
     pizzaName: data.pizzaName,
-    ingredients: data?.ingredients
-      .map((ingredient) => ingredient.ingredientName)
-      .join(", "),
+    ingredients: data?.ingredients.map(
+      (ingredient) => ingredient.ingredientName
+    ),
     pizzaAttributes: data?.pizzaAttributes
       .map((attribute) => attribute.attributeName)
       .join(", "),
