@@ -3,13 +3,14 @@ import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 import { getConvertedPizzaData } from "../../utils/getConvertedPizzaData";
 import { DeleteModal } from "./DeleteModal";
 import { PizzaIngredientMenuDialog } from "./PizzaIngredientMenuDialog";
+import { PizzaAttributesMenuDialog } from "./PizzaAttributesMenuDialog";
 
 export type PizzaDetailsType = {
   pizzaName: string;
   priceStandard: number;
   weightStandard: number;
   ingredients: string[];
-  pizzaAttributes: string;
+  pizzaAttributes: string[];
   doughCrust: string;
   pizzaGroup: string;
 };
@@ -30,12 +31,13 @@ export function UniversalProductDetails({
     priceStandard: 0,
     weightStandard: 0,
     ingredients: [],
-    pizzaAttributes: "",
+    pizzaAttributes: [],
     doughCrust: "",
     pizzaGroup: "",
   });
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const attributesDialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     if (data) {
@@ -76,6 +78,16 @@ export function UniversalProductDetails({
     });
   };
 
+  const handleDeleteAttribute = (attribute: string) => {
+    const updatedAttributes = pizzaDetails.pizzaAttributes.filter(
+      (item) => item !== attribute
+    );
+    setPizzaDetails({
+      ...pizzaDetails,
+      pizzaAttributes: updatedAttributes,
+    });
+  };
+
   function toggleDialog(ref: React.RefObject<HTMLDialogElement>) {
     if (!ref.current) {
       return;
@@ -84,6 +96,8 @@ export function UniversalProductDetails({
       ? ref.current.close()
       : ref.current.showModal();
   }
+
+  console.log(pizzaDetails);
 
   return (
     <>
@@ -156,14 +170,23 @@ export function UniversalProductDetails({
           />
         </div>
 
-        <label htmlFor="pizzaAttributes">Pizza Attributes</label>
-        <input
-          required
-          type="text"
-          id="pizzaAttributes"
-          value={pizzaDetails?.pizzaAttributes}
-          onChange={handleInputChange}
+        <label className="font-medium">Pizza Attributes</label>
+        {pizzaDetails.pizzaAttributes.map((attribute, index) => (
+          <div key={index}>
+            <span>{attribute}</span>
+            <span onClick={() => handleDeleteAttribute(attribute)}>Delete</span>
+          </div>
+        ))}
+        <button type="button" onClick={() => toggleDialog(attributesDialogRef)}>
+          Add Attribute
+        </button>
+        <PizzaAttributesMenuDialog
+          pizzaDetails={pizzaDetails}
+          ref={attributesDialogRef}
+          toggleDialog={() => toggleDialog(attributesDialogRef)}
+          setPizzaDetails={setPizzaDetails}
         />
+
         <label htmlFor="doughCrust">Dough Crust</label>
         <select
           required

@@ -6,9 +6,9 @@ export const getConvertedPizzaData = (data: PizzaData) => {
     ingredients: data?.ingredients.map(
       (ingredient) => ingredient.ingredientName
     ),
-    pizzaAttributes: data?.pizzaAttributes
-      .map((attribute) => attribute.attributeName)
-      .join(", "),
+    pizzaAttributes: data?.pizzaAttributes.map(
+      (attribute) => attribute.attributeName
+    ),
     priceStandard: data.priceStandard,
     weightStandard: data.weightStandard,
     doughCrust: data.doughCrust,

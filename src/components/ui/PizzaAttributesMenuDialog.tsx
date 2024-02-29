@@ -1,13 +1,16 @@
 import { forwardRef } from "react";
+import { PizzaDetailsType } from "./UniversalProductDetails";
 
 type PizzaAttributesMenuDialogProps = {
   toggleDialog: () => void;
+  pizzaDetails: PizzaDetailsType;
+  setPizzaDetails: React.Dispatch<React.SetStateAction<PizzaDetailsType>>;
 };
 
 export const PizzaAttributesMenuDialog = forwardRef<
   HTMLDialogElement,
   PizzaAttributesMenuDialogProps
->(({ toggleDialog }, ref) => {
+>(({ toggleDialog, setPizzaDetails, pizzaDetails }, ref) => {
   const pizzaAllAttributes = ["NEW", "CHEESE", "VEGETARIAN", "SPICY", "NONE"];
   return (
     <dialog
@@ -21,7 +24,26 @@ export const PizzaAttributesMenuDialog = forwardRef<
       <button type="button" onClick={toggleDialog}>
         close
       </button>
-      <div></div>
+      <div>
+        {pizzaAllAttributes
+          .filter(
+            (attribute) => !pizzaDetails.pizzaAttributes.includes(attribute)
+          )
+          .map((attribute) => (
+            <button
+              type="button"
+              key={attribute}
+              onClick={() =>
+                setPizzaDetails((prevDetails) => ({
+                  ...prevDetails,
+                  pizzaAttributes: [...prevDetails.pizzaAttributes, attribute],
+                }))
+              }
+            >
+              {attribute}
+            </button>
+          ))}
+      </div>
     </dialog>
   );
 });

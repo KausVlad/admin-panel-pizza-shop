@@ -15,13 +15,9 @@ export const getPizzaDataMutationPartial = (
   Object.keys(pizzaDetails).forEach((key) => {
     const value = pizzaDetails[key as keyof PizzaDetailsType];
     if (convertedData[key as keyof PizzaDetailsType] !== value) {
-      let updatedValue: string | number | (string | number)[] = value;
-      if (typeof value === "string" && key === "pizzaAttributes") {
-        updatedValue = value.split(", ");
-      }
       pizzaDataMutationPartial = {
         ...pizzaDataMutationPartial,
-        [key]: updatedValue,
+        [key]: value,
       };
     }
   });
