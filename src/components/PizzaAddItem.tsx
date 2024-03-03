@@ -1,8 +1,6 @@
 import { useAddPizzaMutation } from "../store/pizzaShopApi/pizza.endpoints";
-import {
-  PizzaDetailsType,
-  UniversalProductDetails,
-} from "./ui/UniversalProductDetails";
+import { UniversalProductDetails } from "./ui/UniversalProductDetails";
+import { PizzaDetailsType } from "./ui/UniversalProductDetails.types";
 
 export default function PizzaAddItem() {
   const [addPizza] = useAddPizzaMutation();
@@ -12,7 +10,7 @@ export default function PizzaAddItem() {
       await addPizza({
         ...pizzaDetails,
         ingredients: pizzaDetails.ingredients,
-        pizzaAttributes: pizzaDetails.pizzaAttributes.split(", "),
+        pizzaAttributes: pizzaDetails.pizzaAttributes,
       }).unwrap();
     } catch (error) {
       console.error(error);
