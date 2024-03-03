@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react";
 import { useGetIngredientsQuery } from "../../store/pizzaShopApi/ingredient.endpoints";
-import { PizzaDetailsType } from "./UniversalProductDetails";
+import { PizzaDetailsType } from "./UniversalProductDetails.types";
 
 type PizzaIngredientMenuDialogProps = {
   toggleDialog: () => void;

@@ -1,25 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { PizzaData } from "../../store/pizzaShopApi/pizza.endpoints.types";
 import { getConvertedPizzaData } from "../../utils/getConvertedPizzaData";
 import { DeleteModal } from "./DeleteModal";
 import { PizzaIngredientMenuDialog } from "./PizzaIngredientMenuDialog";
 import { PizzaAttributesMenuDialog } from "./PizzaAttributesMenuDialog";
-
-export type PizzaDetailsType = {
-  pizzaName: string;
-  priceStandard: number;
-  weightStandard: number;
-  ingredients: string[];
-  pizzaAttributes: string[];
-  doughCrust: string;
-  pizzaGroup: string;
-};
-
-type UniversalProductDetailsProps = {
-  data?: PizzaData | undefined;
-  serverMutation?: (pizzaDetails: PizzaDetailsType, data?: PizzaData) => void;
-  addOrEdit: "add" | "edit";
-};
+import {
+  PizzaDetailsType,
+  UniversalProductDetailsProps,
+} from "./UniversalProductDetails.types";
 
 export function UniversalProductDetails({
   data,
