@@ -1,4 +1,4 @@
-import { PizzaDetailsType } from "../components/ui/UniversalProductDetails.types";
+import { PizzaDetailsType } from "../components/ui/UniversalProductPizzaDetails.types";
 import {
   PizzaData,
   PizzaDataMutationPartial,

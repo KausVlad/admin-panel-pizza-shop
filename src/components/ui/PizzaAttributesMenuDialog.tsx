@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { PizzaDetailsType } from "./UniversalProductDetails.types";
+import { PizzaDetailsType } from "./UniversalProductPizzaDetails.types";
 
 type PizzaAttributesMenuDialogProps = {
   toggleDialog: () => void;

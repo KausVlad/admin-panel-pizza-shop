@@ -10,7 +10,7 @@ export type PizzaDetailsType = {
   pizzaGroup: string;
 };
 
-export type UniversalProductDetailsProps = {
+export type UniversalProductPizzaDetailsProps = {
   data?: PizzaData | undefined;
   serverMutation?: (pizzaDetails: PizzaDetailsType, data?: PizzaData) => void;
   addOrEdit: "add" | "edit";

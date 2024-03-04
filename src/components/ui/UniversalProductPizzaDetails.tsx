@@ -1,17 +1,17 @@
 import { DeleteModal } from "./DeleteModal";
 import { PizzaIngredientMenuDialog } from "./PizzaIngredientMenuDialog";
 import { PizzaAttributesMenuDialog } from "./PizzaAttributesMenuDialog";
-import { UniversalProductDetailsProps } from "./UniversalProductDetails.types";
 import { usePizzaDetails } from "../../hooks/usePizzaDetails";
+import { UniversalProductPizzaDetailsProps } from "./UniversalProductPizzaDetails.types";
 
-export function UniversalProductDetails({
+export function UniversalProductPizzaDetails({
   data,
   serverMutation,
   addOrEdit,
-}: UniversalProductDetailsProps) {
+}: UniversalProductPizzaDetailsProps) {
   const {
     pizzaDetails,
-    dialogRef,
+    ingredientsDialogRef,
     attributesDialogRef,
     handleInputChange,
     handleSubmit,
@@ -72,7 +72,9 @@ export function UniversalProductDetails({
           <label className="font-medium">Ingredients</label>
           {pizzaDetails.ingredients.map((ingredient, index) => (
             <div key={index}>
-              <span onClick={() => toggleDialog(dialogRef)}>{ingredient}</span>
+              <span onClick={() => toggleDialog(ingredientsDialogRef)}>
+                {ingredient}
+              </span>
               <button
                 type="button"
                 onClick={() => handleDeleteIngredient(ingredient)}
@@ -81,12 +83,15 @@ export function UniversalProductDetails({
               </button>
             </div>
           ))}
-          <button type="button" onClick={() => toggleDialog(dialogRef)}>
+          <button
+            type="button"
+            onClick={() => toggleDialog(ingredientsDialogRef)}
+          >
             Add Ingredient
           </button>
           <PizzaIngredientMenuDialog
-            ref={dialogRef}
-            toggleDialog={() => toggleDialog(dialogRef)}
+            ref={ingredientsDialogRef}
+            toggleDialog={() => toggleDialog(ingredientsDialogRef)}
             pizzaDetails={pizzaDetails}
             setPizzaDetails={setPizzaDetails}
           />

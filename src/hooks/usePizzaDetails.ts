@@ -2,14 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import {
   PizzaDetailsType,
-  UniversalProductDetailsProps,
-} from "../components/ui/UniversalProductDetails.types";
+  UniversalProductPizzaDetailsProps,
+} from "../components/ui/UniversalProductPizzaDetails.types";
 import { getConvertedPizzaData } from "../utils/getConvertedPizzaData";
 
 export const usePizzaDetails = ({
   data,
   serverMutation,
-}: Omit<UniversalProductDetailsProps, "addOrEdit">) => {
+}: Omit<UniversalProductPizzaDetailsProps, "addOrEdit">) => {
   const [pizzaDetails, setPizzaDetails] = useState<PizzaDetailsType>({
     pizzaName: "",
     priceStandard: 0,
@@ -20,7 +20,7 @@ export const usePizzaDetails = ({
     pizzaGroup: "",
   });
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const ingredientsDialogRef = useRef<HTMLDialogElement>(null);
   const attributesDialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export const usePizzaDetails = ({
 
   return {
     pizzaDetails,
-    dialogRef,
+    ingredientsDialogRef,
     attributesDialogRef,
     handleInputChange,
     handleSubmit,

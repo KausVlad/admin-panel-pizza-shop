@@ -3,10 +3,10 @@ import {
   useGetPizzaByNameQuery,
   useUpdatePizzaMutation,
 } from "../store/pizzaShopApi/pizza.endpoints";
-import { UniversalProductDetails } from "./ui/UniversalProductDetails";
+import { UniversalProductPizzaDetails } from "./ui/UniversalProductPizzaDetails";
 import { PizzaData } from "../store/pizzaShopApi/pizza.endpoints.types";
 import { getPizzaDataMutationPartial } from "../utils/getPizzaDataMutationPartial";
-import { PizzaDetailsType } from "./ui/UniversalProductDetails.types";
+import { PizzaDetailsType } from "./ui/UniversalProductPizzaDetails.types";
 
 export function PizzaDetailsCard() {
   const { pizzaName: paramsPizzaName } = useParams();
@@ -49,7 +49,7 @@ export function PizzaDetailsCard() {
   }
 
   return (
-    <UniversalProductDetails
+    <UniversalProductPizzaDetails
       data={data}
       addOrEdit="edit"
       serverMutation={serverMutationUpdate}

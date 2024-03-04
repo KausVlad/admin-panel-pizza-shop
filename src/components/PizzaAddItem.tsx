@@ -1,6 +1,6 @@
 import { useAddPizzaMutation } from "../store/pizzaShopApi/pizza.endpoints";
-import { UniversalProductDetails } from "./ui/UniversalProductDetails";
-import { PizzaDetailsType } from "./ui/UniversalProductDetails.types";
+import { UniversalProductPizzaDetails } from "./ui/UniversalProductPizzaDetails";
+import { PizzaDetailsType } from "./ui/UniversalProductPizzaDetails.types";
 
 export default function PizzaAddItem() {
   const [addPizza] = useAddPizzaMutation();
@@ -19,7 +19,7 @@ export default function PizzaAddItem() {
 
   return (
     <>
-      <UniversalProductDetails
+      <UniversalProductPizzaDetails
         serverMutation={serverMutationAddPizza}
         addOrEdit="add"
       />
