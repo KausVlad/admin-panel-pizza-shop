@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useGetPizzasQuery } from "../store/pizzaShopApi/pizza.endpoints";
 import UniversalProductCell from "./ui/UniversalProductCell";
 
-export default function PizzaList() {
+export default function PizzasList() {
   const { data, error, isLoading } = useGetPizzasQuery(null);
   console.log(data, error, isLoading);
 

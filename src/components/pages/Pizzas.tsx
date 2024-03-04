@@ -1,5 +1,5 @@
-import PizzaList from "../PizzaList";
+import PizzasList from "../PizzasList";
 
 export function Pizzas() {
-  return <PizzaList />;
+  return <PizzasList />;
 }

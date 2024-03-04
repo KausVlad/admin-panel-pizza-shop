@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import { PizzaDetailsCard } from "./components/PizzaDetailsCard";
 import { Pizzas } from "./components/pages/Pizzas";
 import { RequireAuth } from "./components/RequireAuth";
 import { AddPizza } from "./components/pages/AddPizza";
 import { AppLayout } from "./components/ui/AppLayout";
 import { Login } from "./components/pages/Login";
+import { Pizza } from "./components/pages/Pizza";
+import { Ingredients } from "./components/pages/Ingredients";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
           },
           {
             path: "pizza/:pizzaName",
-            element: <PizzaDetailsCard />,
+            element: <Pizza />,
+          },
+          {
+            path: "ingredients",
+            element: <Ingredients />,
           },
         ],
       },
