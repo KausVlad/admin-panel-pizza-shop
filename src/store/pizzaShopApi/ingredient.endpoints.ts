@@ -8,8 +8,17 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       query: () => ({
         url: "/ingredient/all",
       }),
+      providesTags: ["Ingredients"],
+    }),
+    deleteIngredient: builder.mutation<string, string>({
+      query: (ingredientName) => ({
+        url: `/ingredient/${ingredientName}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Ingredients"],
     }),
   }),
 });
 
-export const { useGetIngredientsQuery } = ingredientEndpoints;
+export const { useGetIngredientsQuery, useDeleteIngredientMutation } =
+  ingredientEndpoints;

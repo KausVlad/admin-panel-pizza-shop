@@ -1,12 +1,14 @@
 import { FC, useRef } from "react";
-import { useDeletePizzaMutation } from "../../store/pizzaShopApi/pizza.endpoints";
 
 type DeleteModalProps = {
   productName: string;
+  deleteMutation: (productName: string) => void;
 };
 
-export const DeleteModal: FC<DeleteModalProps> = ({ productName }) => {
-  const [deletePizza] = useDeletePizzaMutation();
+export const DeleteModal: FC<DeleteModalProps> = ({
+  productName,
+  deleteMutation,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   function toggleDialog() {
@@ -19,7 +21,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ productName }) => {
   }
 
   const handleDelete = () => {
-    deletePizza(productName);
+    deleteMutation(productName);
     toggleDialog();
   };
 

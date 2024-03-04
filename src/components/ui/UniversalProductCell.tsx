@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { DeleteModal } from "./DeleteModal";
+import { useDeletePizzaMutation } from "../../store/pizzaShopApi/pizza.endpoints";
 
 type UniversalProductCellProps = {
   id: number;
@@ -16,6 +17,8 @@ export default function UniversalProductCell({
   price,
   portion,
 }: UniversalProductCellProps) {
+  const [deletePizza] = useDeletePizzaMutation();
+
   return (
     <tr>
       <td>{id}</td>
@@ -27,7 +30,7 @@ export default function UniversalProductCell({
         <Link to={`/pizza/${productName}`}>details</Link>
       </td>
       <td>
-        <DeleteModal productName={productName} />
+        <DeleteModal productName={productName} deleteMutation={deletePizza} />
       </td>
     </tr>
   );

@@ -1,7 +1,12 @@
-import { useGetIngredientsQuery } from "../store/pizzaShopApi/ingredient.endpoints";
+import {
+  useDeleteIngredientMutation,
+  useGetIngredientsQuery,
+} from "../store/pizzaShopApi/ingredient.endpoints";
+import { DeleteModal } from "./ui/DeleteModal";
 
 export const IngredientsList = () => {
   const { data } = useGetIngredientsQuery(null);
+  const [deleteIngredient] = useDeleteIngredientMutation();
   return (
     <>
       <table>
@@ -15,11 +20,17 @@ export const IngredientsList = () => {
         </thead>
         <tbody>
           {data?.map((ingredient) => (
-            <tr>
+            <tr key={ingredient.id}>
               <td>{ingredient.id}</td>
               <td>{ingredient.ingredientName}</td>
               <td>image WIP</td>
               <td>{ingredient.ingredientGroup}</td>
+              <td>
+                <DeleteModal
+                  productName={ingredient.ingredientName}
+                  deleteMutation={deleteIngredient}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
