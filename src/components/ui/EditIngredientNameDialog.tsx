@@ -12,10 +12,13 @@ export const EditIngredientNameDialog = forwardRef<
 >(({ toggleDialog, ingredientId, ingredientName }, ref) => {
   const [updateIngredient] = useUpdateIngredientMutation();
   const [newIngredientName, setNewIngredientName] = useState(ingredientName);
-  console.log(ingredientName, newIngredientName);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (ingredientName === newIngredientName) {
+      toggleDialog();
+      return;
+    }
     await updateIngredient({ ingredientId, newIngredientName });
     toggleDialog();
   };
