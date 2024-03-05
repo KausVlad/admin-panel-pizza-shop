@@ -5,6 +5,7 @@ import {
   UniversalProductPizzaDetailsProps,
 } from "../components/ui/UniversalProductPizzaDetails.types";
 import { getConvertedPizzaData } from "../utils/getConvertedPizzaData";
+import { toggleDialog } from "../utils/toggleDialog";
 
 export const usePizzaDetails = ({
   data,
@@ -22,6 +23,9 @@ export const usePizzaDetails = ({
 
   const ingredientsDialogRef = useRef<HTMLDialogElement>(null);
   const attributesDialogRef = useRef<HTMLDialogElement>(null);
+
+  const toggleIngredientsDialogRef = () => toggleDialog(ingredientsDialogRef);
+  const toggleAttributesDialogRef = () => toggleDialog(attributesDialogRef);
 
   useEffect(() => {
     if (data) {
@@ -72,24 +76,16 @@ export const usePizzaDetails = ({
     });
   };
 
-  function toggleDialog(ref: React.RefObject<HTMLDialogElement>) {
-    if (!ref.current) {
-      return;
-    }
-    ref.current.hasAttribute("open")
-      ? ref.current.close()
-      : ref.current.showModal();
-  }
-
   return {
     pizzaDetails,
     ingredientsDialogRef,
+    toggleIngredientsDialogRef,
     attributesDialogRef,
+    toggleAttributesDialogRef,
     handleInputChange,
     handleSubmit,
     handleDeleteIngredient,
     handleDeleteAttribute,
-    toggleDialog,
     setPizzaDetails,
   };
 };

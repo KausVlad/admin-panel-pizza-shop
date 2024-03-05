@@ -3,6 +3,7 @@ import { PizzaIngredientMenuDialog } from "./PizzaIngredientMenuDialog";
 import { PizzaAttributesMenuDialog } from "./PizzaAttributesMenuDialog";
 import { usePizzaDetails } from "../../hooks/usePizzaDetails";
 import { UniversalProductPizzaDetailsProps } from "./UniversalProductPizzaDetails.types";
+import { useDeletePizzaMutation } from "../../store/pizzaShopApi/pizza.endpoints";
 
 export function UniversalProductPizzaDetails({
   data,
@@ -12,14 +13,16 @@ export function UniversalProductPizzaDetails({
   const {
     pizzaDetails,
     ingredientsDialogRef,
+    toggleIngredientsDialogRef,
     attributesDialogRef,
+    toggleAttributesDialogRef,
     handleInputChange,
     handleSubmit,
     handleDeleteIngredient,
     handleDeleteAttribute,
-    toggleDialog,
     setPizzaDetails,
   } = usePizzaDetails({ data, serverMutation });
+  const [deletePizza] = useDeletePizzaMutation();
 
   return (
     <>
@@ -72,9 +75,7 @@ export function UniversalProductPizzaDetails({
           <label className="font-medium">Ingredients</label>
           {pizzaDetails.ingredients.map((ingredient, index) => (
             <div key={index}>
-              <span onClick={() => toggleDialog(ingredientsDialogRef)}>
-                {ingredient}
-              </span>
+              <span onClick={toggleIngredientsDialogRef}>{ingredient}</span>
               <button
                 type="button"
                 onClick={() => handleDeleteIngredient(ingredient)}
@@ -83,15 +84,12 @@ export function UniversalProductPizzaDetails({
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            onClick={() => toggleDialog(ingredientsDialogRef)}
-          >
+          <button type="button" onClick={toggleIngredientsDialogRef}>
             Add Ingredient
           </button>
           <PizzaIngredientMenuDialog
             ref={ingredientsDialogRef}
-            toggleDialog={() => toggleDialog(ingredientsDialogRef)}
+            toggleDialog={toggleIngredientsDialogRef}
             pizzaDetails={pizzaDetails}
             setPizzaDetails={setPizzaDetails}
           />
@@ -104,13 +102,13 @@ export function UniversalProductPizzaDetails({
             <span onClick={() => handleDeleteAttribute(attribute)}>Delete</span>
           </div>
         ))}
-        <button type="button" onClick={() => toggleDialog(attributesDialogRef)}>
+        <button type="button" onClick={toggleAttributesDialogRef}>
           Add Attribute
         </button>
         <PizzaAttributesMenuDialog
           pizzaDetails={pizzaDetails}
           ref={attributesDialogRef}
-          toggleDialog={() => toggleDialog(attributesDialogRef)}
+          toggleDialog={toggleAttributesDialogRef}
           setPizzaDetails={setPizzaDetails}
         />
 
@@ -142,7 +140,10 @@ export function UniversalProductPizzaDetails({
         </select>
         {serverMutation ? <button type="submit">{addOrEdit}</button> : null}
         {addOrEdit === "edit" ? (
-          <DeleteModal productName={pizzaDetails.pizzaName} />
+          <DeleteModal
+            productName={pizzaDetails.pizzaName}
+            deleteMutation={deletePizza}
+          />
         ) : null}
       </form>
     </>

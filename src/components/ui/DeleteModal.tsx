@@ -1,4 +1,5 @@
 import { FC, useRef } from "react";
+import { toggleDialog } from "../../utils/toggleDialog";
 
 type DeleteModalProps = {
   productName: string;
@@ -10,35 +11,27 @@ export const DeleteModal: FC<DeleteModalProps> = ({
   deleteMutation,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-
-  function toggleDialog() {
-    if (!dialogRef.current) {
-      return;
-    }
-    dialogRef.current.hasAttribute("open")
-      ? dialogRef.current.close()
-      : dialogRef.current.showModal();
-  }
+  const toggleDialogRef = () => toggleDialog(dialogRef);
 
   const handleDelete = () => {
     deleteMutation(productName);
-    toggleDialog();
+    toggleDialogRef();
   };
 
   return (
     <>
-      <button onClick={toggleDialog}>Delete!</button>
+      <button onClick={toggleDialogRef}>Delete!</button>
       <dialog
         ref={dialogRef}
         onClick={(e) => {
           if (e.currentTarget === e.target) {
-            toggleDialog();
+            toggleDialogRef();
           }
         }}
       >
         <p>Are you sure you want to delete {productName}?</p>
         <button onClick={handleDelete}>Yes</button>
-        <button onClick={toggleDialog}>No</button>
+        <button onClick={toggleDialogRef}>No</button>
       </dialog>
     </>
   );
