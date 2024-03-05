@@ -1,8 +1,13 @@
-export const toggleDialog = (dialogRef: React.RefObject<HTMLDialogElement>) => {
-  if (!dialogRef.current) {
+export const toggleDialog = (
+  dialogRef: React.RefObject<HTMLDialogElement> | HTMLDialogElement
+) => {
+  const currentDialog = "current" in dialogRef ? dialogRef.current : dialogRef;
+
+  if (!currentDialog) {
     return;
   }
-  dialogRef.current.hasAttribute("open")
-    ? dialogRef.current.close()
-    : dialogRef.current.showModal();
+
+  currentDialog.hasAttribute("open")
+    ? currentDialog.close()
+    : currentDialog.showModal();
 };
