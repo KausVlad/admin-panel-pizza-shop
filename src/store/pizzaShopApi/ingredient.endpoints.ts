@@ -17,8 +17,22 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Ingredients"],
     }),
+    updateIngredient: builder.mutation<
+      IngredientData,
+      { ingredientId: number; newIngredientName: string }
+    >({
+      query: ({ ingredientId, newIngredientName }) => ({
+        url: `/ingredient/${ingredientId}`,
+        method: "PATCH",
+        body: { newIngredientName },
+      }),
+      invalidatesTags: ["Ingredients"],
+    }),
   }),
 });
 
-export const { useGetIngredientsQuery, useDeleteIngredientMutation } =
-  ingredientEndpoints;
+export const {
+  useGetIngredientsQuery,
+  useDeleteIngredientMutation,
+  useUpdateIngredientMutation,
+} = ingredientEndpoints;
