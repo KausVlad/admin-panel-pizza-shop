@@ -23,12 +23,22 @@ export const EditIngredientNameDialog = forwardRef<
     toggleDialog();
   };
 
+  const reverseChange = () => {
+    setNewIngredientName(ingredientName);
+    toggleDialog();
+  };
+
   return (
     <dialog
       ref={ref}
       onClick={(e) => {
         if (e.currentTarget === e.target) {
-          toggleDialog();
+          reverseChange();
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          reverseChange();
         }
       }}
     >
@@ -41,7 +51,7 @@ export const EditIngredientNameDialog = forwardRef<
           onChange={(e) => setNewIngredientName(e.target.value)}
         />
         <button type="submit">Submit</button>
-        <button type="reset" onClick={toggleDialog}>
+        <button type="reset" onClick={reverseChange}>
           Cancel
         </button>
       </form>
