@@ -3,3 +3,8 @@ export type IngredientData = {
   ingredientName: string;
   ingredientGroup: string;
 };
+
+export type newIngredientData = {
+  ingredientName: string[];
+  ingredientGroup: string;
+};

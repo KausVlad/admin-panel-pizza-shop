@@ -1,6 +1,9 @@
 import { pizzaShopApi } from "./pizzaShop.api";
 import {} from "./pizza.endpoints.types";
-import { IngredientData } from "./ingredient.endpoints.types";
+import {
+  IngredientData,
+  newIngredientData,
+} from "./ingredient.endpoints.types";
 
 export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,6 +31,14 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Ingredients"],
     }),
+    addIngredient: builder.mutation<IngredientData, newIngredientData>({
+      query: (ingredient) => ({
+        url: "/ingredient/add",
+        method: "POST",
+        body: ingredient,
+      }),
+      invalidatesTags: ["Ingredients"],
+    }),
   }),
 });
 
@@ -35,4 +46,5 @@ export const {
   useGetIngredientsQuery,
   useDeleteIngredientMutation,
   useUpdateIngredientMutation,
+  useAddIngredientMutation,
 } = ingredientEndpoints;
