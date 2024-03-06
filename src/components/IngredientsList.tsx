@@ -6,6 +6,7 @@ import {
 import { DeleteModal } from "./ui/DeleteModal";
 import { toggleDialog } from "../utils/toggleDialog";
 import { EditIngredientNameDialog } from "./ui/EditIngredientNameDialog";
+import { AddIngredientDialog } from "./ui/AddIngredientDialog";
 
 export const IngredientsList = () => {
   const { data } = useGetIngredientsQuery(null);
@@ -58,6 +59,7 @@ export const IngredientsList = () => {
           ))}
         </tbody>
       </table>
+      <AddIngredientDialog />
     </>
   );
 };

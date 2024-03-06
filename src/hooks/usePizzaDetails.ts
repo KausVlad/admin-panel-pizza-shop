@@ -6,6 +6,7 @@ import {
 } from "../components/ui/UniversalProductPizzaDetails.types";
 import { getConvertedPizzaData } from "../utils/getConvertedPizzaData";
 import { toggleDialog } from "../utils/toggleDialog";
+import { handleInputChangeObjectUseState } from "../utils/handleInputChangeObjectUseState";
 
 export const usePizzaDetails = ({
   data,
@@ -40,14 +41,7 @@ export const usePizzaDetails = ({
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { id, value } = e.target;
-    console.log(id, value);
-    setPizzaDetails((prevDetails) => ({
-      ...prevDetails,
-      [id]: value,
-    }));
-  };
+  ) => handleInputChangeObjectUseState<PizzaDetailsType>(e, setPizzaDetails);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -31,7 +31,7 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Ingredients"],
     }),
-    addIngredient: builder.mutation<IngredientData, newIngredientData>({
+    addIngredient: builder.mutation<null, newIngredientData>({
       query: (ingredient) => ({
         url: "/ingredient/add",
         method: "POST",

@@ -5,6 +5,6 @@ export type IngredientData = {
 };
 
 export type newIngredientData = {
-  ingredientName: string[];
+  ingredientsName: string[];
   ingredientGroup: string;
 };
