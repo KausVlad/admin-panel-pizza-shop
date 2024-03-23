@@ -1,4 +1,4 @@
-import { Credentials, LoginData } from "./auth.endpoints.types";
+import { Credentials, LoginData, UserInfo } from "./auth.endpoints.types";
 import { pizzaShopApi } from "./pizzaShop.api";
 
 export const authEndpoints = pizzaShopApi.injectEndpoints({
@@ -19,6 +19,12 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
     signOut: builder.mutation<void, void>({
       query: () => "/auth/signOut",
     }),
+    getUserInfo: builder.query<UserInfo, void>({
+      query: () => ({
+        url: "/auth/userinfo",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -26,4 +32,5 @@ export const {
   useLoginMutation,
   useRefreshTokensMutation,
   useSignOutMutation,
+  useGetUserInfoQuery,
 } = authEndpoints;
