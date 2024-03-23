@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authState, userInfo } from "./auth.slice.types";
+import { AuthState, NullableUserInfo } from "./auth.slice.types";
+import { UserInfo } from "../pizzaShopApi/auth.endpoints.types";
 
-const initialState: authState = {
+const initialState: AuthState = {
   userInfo: {
+    id: null,
     email: null,
-    role: null,
     userName: null,
+    phone: null,
+    address: null,
+    birthDate: null,
+    sex: null,
+    role: null,
+    createdAt: null,
+    userPhoto: null,
   },
   token: null,
   isAuth: false,
@@ -18,24 +26,21 @@ const authSlice = createSlice({
     setUserAccessToken: (state, action) => {
       state.token = action.payload.accessToken;
     },
-    setUserInfo: (state, action: { payload: { userInfo: userInfo } }) => {
+
+    setUserInfo: (state, action: { payload: { userInfo: UserInfo } }) => {
       state.userInfo = {
-        email: action.payload.userInfo.email,
-        role: action.payload.userInfo.role,
-        userName: action.payload.userInfo.userName,
+        ...action.payload.userInfo,
       };
     },
+
     setAuth: (state, action: { payload: { isAuth: boolean } }) => {
       state.isAuth = action.payload.isAuth;
     },
+
     logout: (state) => {
       state.token = null;
       state.isAuth = false;
-      state.userInfo = {
-        email: null,
-        role: null,
-        userName: null,
-      };
+      state.userInfo = {} as NullableUserInfo;
     },
   },
 });

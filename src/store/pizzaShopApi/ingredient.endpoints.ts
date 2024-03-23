@@ -2,7 +2,7 @@ import { pizzaShopApi } from "./pizzaShop.api";
 import {} from "./pizza.endpoints.types";
 import {
   IngredientData,
-  newIngredientData,
+  NewIngredientData,
 } from "./ingredient.endpoints.types";
 
 export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
@@ -31,7 +31,7 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Ingredients"],
     }),
-    addIngredient: builder.mutation<null, newIngredientData>({
+    addIngredient: builder.mutation<null, NewIngredientData>({
       query: (ingredient) => ({
         url: "/ingredient/add",
         method: "POST",

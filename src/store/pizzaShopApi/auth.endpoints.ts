@@ -10,16 +10,19 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+
     refreshTokens: builder.mutation<LoginData, void>({
       query: () => ({
         url: "/auth/refreshTokens",
         method: "POST",
       }),
     }),
+
     signOut: builder.mutation<void, void>({
       query: () => "/auth/signOut",
     }),
-    getUserInfo: builder.query<UserInfo, void>({
+
+    getUserInfo: builder.mutation<UserInfo, void>({
       query: () => ({
         url: "/auth/userinfo",
         method: "GET",
@@ -32,5 +35,5 @@ export const {
   useLoginMutation,
   useRefreshTokensMutation,
   useSignOutMutation,
-  useGetUserInfoQuery,
+  useGetUserInfoMutation,
 } = authEndpoints;
