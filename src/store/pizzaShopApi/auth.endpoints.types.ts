@@ -2,6 +2,11 @@ export type LoginData = {
   accessToken: string;
 };
 
+export type AuthData = {
+  accessToken: string;
+  userInfo: UserInfo;
+};
+
 export type Credentials = {
   email?: string;
   phone?: string;
@@ -18,5 +23,6 @@ export type UserInfo = {
   sex: "MALE" | "FEMALE" | "OTHER";
   role: "ADMIN" | "MANAGER" | "USER";
   createdAt: Date;
+  updatedAt: Date;
   userPhoto: string;
 };

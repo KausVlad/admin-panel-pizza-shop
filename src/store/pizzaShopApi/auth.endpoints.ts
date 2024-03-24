@@ -1,9 +1,9 @@
-import { Credentials, LoginData, UserInfo } from "./auth.endpoints.types";
+import { AuthData, Credentials, UserInfo } from "./auth.endpoints.types";
 import { pizzaShopApi } from "./pizzaShop.api";
 
 export const authEndpoints = pizzaShopApi.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<LoginData, Credentials>({
+    login: builder.mutation<AuthData, Credentials>({
       query: (credentials) => ({
         url: "/auth/signIn",
         method: "POST",
@@ -11,7 +11,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
       }),
     }),
 
-    refreshTokens: builder.mutation<LoginData, void>({
+    refreshTokens: builder.mutation<AuthData, void>({
       query: () => ({
         url: "/auth/refreshTokens",
         method: "POST",
