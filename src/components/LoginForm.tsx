@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  useGetUserInfoMutation,
-  useLoginMutation,
-} from "../store/pizzaShopApi/auth.endpoints";
+import { useLoginMutation } from "../store/pizzaShopApi/auth.endpoints";
 import { useDispatch } from "react-redux";
 import {
   setAuth,
@@ -22,7 +19,6 @@ export default function LoginForm() {
   // const { token } = useSelector((state: RootState) => state.auth);
   const { handleLogout } = useLogout();
   const [login] = useLoginMutation();
-  const [getUserInfo] = useGetUserInfoMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,12 +33,11 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const accessToken = await login({
+      const { accessToken, userInfo } = await login({
         email: credentials.emailOrPhone,
         phone: credentials.emailOrPhone,
         password: credentials.password,
       }).unwrap();
-      const userInfo = await getUserInfo().unwrap();
       const localAuth = parseUserData(userInfo);
 
       dispatch(setUserAccessToken(accessToken));
