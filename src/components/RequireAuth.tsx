@@ -1,6 +1,5 @@
 import { useAuth } from "../hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
-import { useLogout } from "../hooks/useLogout";
 import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -9,7 +8,6 @@ export function RequireAuth() {
   const [isLocalLoading, setLocalLoading] = useState(true);
   const { token, isAuth } = useSelector((state: RootState) => state.auth);
   const { refreshAuth } = useAuth();
-  const { handleLogout } = useLogout();
 
   useEffect(() => {
     let isMounted = true;
@@ -36,7 +34,6 @@ export function RequireAuth() {
     <>Loading...</>
   ) : isAuth ? (
     <>
-      <button onClick={handleLogout}>Logout</button>
       <Outlet />
     </>
   ) : (

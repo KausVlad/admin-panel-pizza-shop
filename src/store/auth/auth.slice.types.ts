@@ -2,14 +2,16 @@
 import { UserInfo } from "../pizzaShopApi/auth.endpoints.types";
 
 export type AuthState = {
-  userInfo: NullableUserInfo;
+  userInfo: PartialUserInfo;
   token: string | null;
   isAuth: boolean;
 };
 
-export type NullableUserInfo = {
-  [K in keyof UserInfo]: UserInfo[K] | null;
-};
+export type PartialUserInfo = Partial<UserInfo>;
+
+// export type NullableUserInfo = {
+//   [K in keyof UserInfo]: UserInfo[K] | null;
+// };
 
 // export type userInfoFromToken = {
 //   email: string | null;
