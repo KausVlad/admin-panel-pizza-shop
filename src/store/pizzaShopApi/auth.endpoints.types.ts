@@ -26,3 +26,14 @@ export type UserInfo = {
   updatedAt: Date;
   userPhoto: string;
 };
+
+export type ChangePassword = {
+  oldPassword: string;
+  newPassword: string;
+};
+
+export type UpdateUserCredentials = {
+  oldPassword: string;
+  email: string;
+  phone: string;
+};
