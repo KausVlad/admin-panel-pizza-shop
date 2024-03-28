@@ -34,6 +34,6 @@ export type ChangePassword = {
 
 export type UpdateUserCredentials = {
   oldPassword: string;
-  email: string;
-  phone: string;
+  email: string | undefined;
+  phone: string | undefined;
 };

@@ -2,9 +2,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useState } from "react";
 import { handleInputChangeObjectUseState } from "../utils/handleInputChangeObjectUseState";
+import {
+  useChangePasswordMutation,
+  useUpdateUserCredentialsMutation,
+} from "../store/pizzaShopApi/auth.endpoints";
 
 export const UserProfile = () => {
   const { userInfo } = useSelector((state: RootState) => state.auth);
+  const [updateUserCredentials] = useUpdateUserCredentialsMutation();
+  const [changePassword] = useChangePasswordMutation();
 
   const [userInfoState, setUserInfoState] = useState({
     ...userInfo,
@@ -32,7 +38,22 @@ export const UserProfile = () => {
           value={userInfoState.oldPassword}
         />
       </fieldset>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateUserCredentials({
+            email:
+              userInfoState.email !== userInfo.email
+                ? userInfoState.email
+                : undefined,
+            phone:
+              userInfoState.phone !== userInfo.phone
+                ? userInfoState.phone
+                : undefined,
+            oldPassword: userInfoState.oldPassword,
+          });
+        }}
+      >
         <fieldset>
           <legend>User Credentials</legend>
           <label htmlFor="email">Email</label>
@@ -46,14 +67,23 @@ export const UserProfile = () => {
           <label htmlFor="phone">PhoneNumber</label>
           <input
             id="phone"
-            type="text"
+            type="phone"
             onChange={handleChange}
             value={userInfoState.phone}
             disabled={userInfoState.oldPassword.length < 6}
           />
+          <button type="submit">Update</button>
         </fieldset>
       </form>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          changePassword({
+            oldPassword: userInfoState.oldPassword,
+            newPassword: userInfoState.newPassword,
+          });
+        }}
+      >
         <fieldset>
           <legend>New Password</legend>
           <label htmlFor="newPassword">Password</label>
