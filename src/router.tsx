@@ -6,6 +6,7 @@ import { AppLayout } from "./components/ui/AppLayout";
 import { Login } from "./components/pages/Login";
 import { Pizza } from "./components/pages/Pizza";
 import { Ingredients } from "./components/pages/Ingredients";
+import { Profile } from "./components/pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
           {
             path: "ingredients",
             element: <Ingredients />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },

@@ -17,7 +17,7 @@ export const TopBar = () => {
 
   return (
     <div className="flex">
-      <NavLink to="/pizza" className="flex">
+      <NavLink to="/profile" className="flex">
         <AdvancedImage
           cldImg={userImage}
           plugins={[lazyload()]}
