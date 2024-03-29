@@ -3,6 +3,7 @@ import {
   ChangePassword,
   Credentials,
   UpdateUserCredentials,
+  UpdateUserInfo,
   UserInfo,
 } from "./auth.endpoints.types";
 import { pizzaShopApi } from "./pizzaShop.api";
@@ -48,6 +49,13 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         body: updateUserCredentials,
       }),
     }),
+    updateUserInfo: builder.mutation<void, UpdateUserInfo>({
+      query: (updateUserInfo) => ({
+        url: "/auth/updateUserInfo",
+        method: "PATCH",
+        body: updateUserInfo,
+      }),
+    }),
   }),
 });
 
@@ -58,4 +66,5 @@ export const {
   useGetUserInfoMutation,
   useChangePasswordMutation,
   useUpdateUserCredentialsMutation,
+  useUpdateUserInfoMutation,
 } = authEndpoints;

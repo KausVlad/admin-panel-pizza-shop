@@ -20,8 +20,8 @@ export type UserInfo = {
   phone: string;
   address: string;
   birthDate: Date;
-  sex: "MALE" | "FEMALE" | "OTHER";
-  role: "ADMIN" | "MANAGER" | "USER";
+  sex: EnumSex;
+  role: EnumRole;
   createdAt: Date;
   updatedAt: Date;
   userPhoto: string;
@@ -37,3 +37,22 @@ export type UpdateUserCredentials = {
   email: string | undefined;
   phone: string | undefined;
 };
+
+export type UpdateUserInfo = {
+  userName: string;
+  address: string;
+  birthDate: Date;
+  sex: EnumSex;
+};
+
+export enum EnumSex {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
+}
+
+export enum EnumRole {
+  ADMIN = "ADMIN",
+  MANAGER = "MANAGER",
+  USER = "USER",
+}
