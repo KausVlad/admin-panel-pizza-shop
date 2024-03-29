@@ -13,6 +13,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUserAccessToken: (state, action) => {
+      // TODO: add type for action
       state.token = action.payload.accessToken;
     },
 

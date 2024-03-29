@@ -1,18 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useState } from "react";
 import { handleInputChangeObjectUseState } from "../utils/handleInputChangeObjectUseState";
 import {
   useChangePasswordMutation,
+  useGetUserInfoMutation,
   useUpdateUserCredentialsMutation,
   useUpdateUserInfoMutation,
 } from "../store/pizzaShopApi/auth.endpoints";
+import { setUserInfo } from "../store/auth/auth.slice";
 
 export const UserProfile = () => {
   const { userInfo } = useSelector((state: RootState) => state.auth);
   const [updateUserCredentials] = useUpdateUserCredentialsMutation();
   const [changePassword] = useChangePasswordMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
+  const [getUserInfo] = useGetUserInfoMutation();
+
+  const dispatch = useDispatch();
 
   const [userInfoState, setUserInfoState] = useState({
     ...userInfo,
@@ -26,6 +31,12 @@ export const UserProfile = () => {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     handleInputChangeObjectUseState<typeof userInfoState>(e, setUserInfoState);
+  };
+
+  const updateStateData = async () => {
+    const userInfo = await getUserInfo().unwrap();
+
+    dispatch(setUserInfo({ userInfo }));
   };
 
   return (
@@ -54,6 +65,7 @@ export const UserProfile = () => {
                 : undefined,
             oldPassword: userInfoState.oldPassword,
           });
+          updateStateData();
         }}
       >
         <fieldset>
@@ -84,6 +96,7 @@ export const UserProfile = () => {
             oldPassword: userInfoState.oldPassword,
             newPassword: userInfoState.newPassword,
           });
+          updateStateData();
         }}
       >
         <fieldset>
@@ -119,6 +132,7 @@ export const UserProfile = () => {
                 ? userInfoState.sex
                 : undefined,
           });
+          updateStateData();
         }}
       >
         <fieldset>
