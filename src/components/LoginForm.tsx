@@ -40,7 +40,9 @@ export default function LoginForm() {
       }).unwrap();
       const localAuth = parseUserData(userInfo);
 
-      dispatch(setUserAccessToken(accessToken));
+      console.log(accessToken);
+
+      dispatch(setUserAccessToken({ accessToken }));
       dispatch(setUserInfo({ userInfo }));
       dispatch(setAuth({ isAuth: localAuth }));
 

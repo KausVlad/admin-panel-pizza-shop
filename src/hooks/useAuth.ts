@@ -17,7 +17,7 @@ export function useAuth() {
       const { accessToken, userInfo } = await refreshTokens().unwrap();
       const localAuth = parseUserData(userInfo);
 
-      dispatch(setUserAccessToken(accessToken));
+      dispatch(setUserAccessToken({ accessToken }));
       dispatch(setUserInfo({ userInfo }));
       dispatch(setAuth({ isAuth: localAuth }));
     } catch (error) {

@@ -38,6 +38,7 @@ const baseQueryWithResult = async (
     );
     console.log(refreshResult);
     if (refreshResult?.data) {
+      console.log("Виправ шось тут");
       api.dispatch(setUserAccessToken(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
