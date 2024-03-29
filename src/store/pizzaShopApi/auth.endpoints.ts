@@ -35,6 +35,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
     changePassword: builder.mutation<void, ChangePassword>({
       query: (changePassword) => ({
         url: "/auth/changePassword",
@@ -42,6 +43,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         body: changePassword,
       }),
     }),
+
     updateUserCredentials: builder.mutation<void, UpdateUserCredentials>({
       query: (updateUserCredentials) => ({
         url: "/auth/updateUserCredentials",
@@ -49,6 +51,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         body: updateUserCredentials,
       }),
     }),
+
     updateUserInfo: builder.mutation<void, UpdateUserInfo>({
       query: (updateUserInfo) => ({
         url: "/auth/updateUserInfo",

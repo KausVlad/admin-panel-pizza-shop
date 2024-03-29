@@ -19,7 +19,7 @@ export type UserInfo = {
   userName: string;
   phone: string;
   address: string;
-  birthDate: Date;
+  birthDate: string;
   sex: EnumSex;
   role: EnumRole;
   createdAt: Date;
@@ -39,10 +39,10 @@ export type UpdateUserCredentials = {
 };
 
 export type UpdateUserInfo = {
-  userName: string;
-  address: string;
-  birthDate: Date;
-  sex: EnumSex;
+  userName: string | undefined;
+  address: string | undefined;
+  birthDate: string | undefined;
+  sex: EnumSex | undefined;
 };
 
 export enum EnumSex {

@@ -5,12 +5,14 @@ import { handleInputChangeObjectUseState } from "../utils/handleInputChangeObjec
 import {
   useChangePasswordMutation,
   useUpdateUserCredentialsMutation,
+  useUpdateUserInfoMutation,
 } from "../store/pizzaShopApi/auth.endpoints";
 
 export const UserProfile = () => {
   const { userInfo } = useSelector((state: RootState) => state.auth);
   const [updateUserCredentials] = useUpdateUserCredentialsMutation();
   const [changePassword] = useChangePasswordMutation();
+  const [updateUserInfo] = useUpdateUserInfoMutation();
 
   const [userInfoState, setUserInfoState] = useState({
     ...userInfo,
@@ -94,6 +96,65 @@ export const UserProfile = () => {
             value={userInfoState.newPassword}
             disabled={userInfoState.oldPassword.length < 6}
           />
+        </fieldset>
+      </form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateUserInfo({
+            userName:
+              userInfoState.userName !== userInfo.userName
+                ? userInfoState.userName
+                : undefined,
+            address:
+              userInfoState.address !== userInfo.address
+                ? userInfoState.address
+                : undefined,
+            birthDate:
+              userInfoState.birthDate !== userInfo.birthDate
+                ? userInfoState.birthDate
+                : undefined,
+            sex:
+              userInfoState.sex !== userInfo.sex
+                ? userInfoState.sex
+                : undefined,
+          });
+        }}
+      >
+        <fieldset>
+          <legend>User Info</legend>
+          <label htmlFor="userName">UserName</label>
+          <input
+            id="userName"
+            type="text"
+            onChange={handleChange}
+            value={userInfoState.userName}
+          />
+          <label htmlFor="address">Address</label>
+          <input
+            id="address"
+            type="text"
+            onChange={handleChange}
+            value={userInfoState.address}
+          />
+          <label htmlFor="birthDate">BirthDate</label>
+          <input
+            id="birthDate"
+            type="date"
+            onChange={handleChange}
+            value={
+              userInfoState.birthDate
+                ? userInfoState.birthDate.split("T")[0]
+                : ""
+            }
+          />
+          <label htmlFor="sex">Sex</label>
+          <select id="sex" onChange={handleChange} value={userInfoState.sex}>
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+            <option value="OTHER">OTHER</option>
+          </select>
+          <button type="submit">Update</button>
         </fieldset>
       </form>
     </>
