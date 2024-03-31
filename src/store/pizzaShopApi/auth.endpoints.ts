@@ -6,6 +6,7 @@ import {
   UpdateUserInfo,
   UpdateUserPhoto,
   UserInfo,
+  UserInfoAndMessage,
 } from "./auth.endpoints.types";
 import { pizzaShopApi } from "./pizzaShop.api";
 
@@ -53,7 +54,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
       }),
     }),
 
-    updateUserInfo: builder.mutation<void, UpdateUserInfo>({
+    updateUserInfo: builder.mutation<UserInfoAndMessage, UpdateUserInfo>({
       query: (updateUserInfo) => ({
         url: "/auth/updateUserInfo",
         method: "PATCH",
@@ -61,7 +62,7 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
       }),
     }),
 
-    updateUserPhoto: builder.mutation<void, UpdateUserPhoto>({
+    updateUserPhoto: builder.mutation<UserInfoAndMessage, UpdateUserPhoto>({
       query: ({ userPhoto }) => {
         const formData = new FormData();
         if (userPhoto) {

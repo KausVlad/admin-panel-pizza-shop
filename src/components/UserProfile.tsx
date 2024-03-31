@@ -4,7 +4,6 @@ import { useState } from "react";
 import { handleInputChangeObjectUseState } from "../utils/handleInputChangeObjectUseState";
 import {
   useChangePasswordMutation,
-  useGetUserInfoMutation,
   useUpdateUserCredentialsMutation,
   useUpdateUserInfoMutation,
   useUpdateUserPhotoMutation,
@@ -16,7 +15,6 @@ export const UserProfile = () => {
   const [updateUserCredentials] = useUpdateUserCredentialsMutation();
   const [changePassword] = useChangePasswordMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
-  const [getUserInfo] = useGetUserInfoMutation();
   const [updateUserPhoto] = useUpdateUserPhotoMutation();
 
   const dispatch = useDispatch();
@@ -34,12 +32,6 @@ export const UserProfile = () => {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     handleInputChangeObjectUseState<typeof userInfoState>(e, setUserInfoState);
-  };
-
-  const updateStateData = async () => {
-    const userInfo = await getUserInfo().unwrap();
-
-    dispatch(setUserInfo({ userInfo }));
   };
 
   return (
@@ -68,7 +60,6 @@ export const UserProfile = () => {
                 : undefined,
             oldPassword: userInfoState.oldPassword,
           });
-          updateStateData();
         }}
       >
         <fieldset>
@@ -99,7 +90,6 @@ export const UserProfile = () => {
             oldPassword: userInfoState.oldPassword,
             newPassword: userInfoState.newPassword,
           });
-          updateStateData();
         }}
       >
         <fieldset>
@@ -115,9 +105,9 @@ export const UserProfile = () => {
         </fieldset>
       </form>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          updateUserInfo({
+          const { userInfo: newUserInfo } = await updateUserInfo({
             userName:
               userInfoState.userName !== userInfo.userName
                 ? userInfoState.userName
@@ -134,8 +124,9 @@ export const UserProfile = () => {
               userInfoState.sex !== userInfo.sex
                 ? userInfoState.sex
                 : undefined,
-          });
-          updateStateData();
+          }).unwrap();
+
+          dispatch(setUserInfo({ userInfo: newUserInfo }));
         }}
       >
         <fieldset>
@@ -175,14 +166,12 @@ export const UserProfile = () => {
         </fieldset>
       </form>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          updateUserPhoto({
+          const { userInfo } = await updateUserPhoto({
             userPhoto,
-          });
-          setTimeout(() => {
-            updateStateData();
-          }, 5000);
+          }).unwrap();
+          dispatch(setUserInfo({ userInfo }));
         }}
       >
         <fieldset>

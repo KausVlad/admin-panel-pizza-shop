@@ -49,6 +49,11 @@ export type UpdateUserPhoto = {
   userPhoto: File | null;
 };
 
+export type UserInfoAndMessage = {
+  message: string;
+  userInfo: UserInfo;
+};
+
 export enum EnumSex {
   MALE = "MALE",
   FEMALE = "FEMALE",
