@@ -45,6 +45,10 @@ export type UpdateUserInfo = {
   sex: EnumSex | undefined;
 };
 
+export type UpdateUserPhoto = {
+  userPhoto: File | null;
+};
+
 export enum EnumSex {
   MALE = "MALE",
   FEMALE = "FEMALE",

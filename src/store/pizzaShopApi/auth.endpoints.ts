@@ -4,6 +4,7 @@ import {
   Credentials,
   UpdateUserCredentials,
   UpdateUserInfo,
+  UpdateUserPhoto,
   UserInfo,
 } from "./auth.endpoints.types";
 import { pizzaShopApi } from "./pizzaShop.api";
@@ -59,6 +60,21 @@ export const authEndpoints = pizzaShopApi.injectEndpoints({
         body: updateUserInfo,
       }),
     }),
+
+    updateUserPhoto: builder.mutation<void, UpdateUserPhoto>({
+      query: ({ userPhoto }) => {
+        const formData = new FormData();
+        if (userPhoto) {
+          formData.append("userPhoto", userPhoto);
+        }
+
+        return {
+          url: "/auth/updateUserPhoto",
+          method: "POST",
+          body: formData,
+        };
+      },
+    }),
   }),
 });
 
@@ -70,4 +86,5 @@ export const {
   useChangePasswordMutation,
   useUpdateUserCredentialsMutation,
   useUpdateUserInfoMutation,
+  useUpdateUserPhotoMutation,
 } = authEndpoints;

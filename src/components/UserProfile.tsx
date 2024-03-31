@@ -7,6 +7,7 @@ import {
   useGetUserInfoMutation,
   useUpdateUserCredentialsMutation,
   useUpdateUserInfoMutation,
+  useUpdateUserPhotoMutation,
 } from "../store/pizzaShopApi/auth.endpoints";
 import { setUserInfo } from "../store/auth/auth.slice";
 
@@ -16,6 +17,7 @@ export const UserProfile = () => {
   const [changePassword] = useChangePasswordMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const [getUserInfo] = useGetUserInfoMutation();
+  const [updateUserPhoto] = useUpdateUserPhotoMutation();
 
   const dispatch = useDispatch();
 
@@ -24,6 +26,7 @@ export const UserProfile = () => {
     newPassword: "",
     oldPassword: "",
   });
+  const [userPhoto, setUserPhoto] = useState(null as File | null);
 
   const handleChange = (
     e:
@@ -168,6 +171,28 @@ export const UserProfile = () => {
             <option value="FEMALE">FEMALE</option>
             <option value="OTHER">OTHER</option>
           </select>
+          <button type="submit">Update</button>
+        </fieldset>
+      </form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateUserPhoto({
+            userPhoto,
+          });
+          setTimeout(() => {
+            updateStateData();
+          }, 5000);
+        }}
+      >
+        <fieldset>
+          <legend>Update User Photo</legend>
+          <label htmlFor="userPhoto">User Photo</label>
+          <input
+            id="userPhoto"
+            type="file"
+            onChange={(e) => setUserPhoto(e.target.files?.[0] || null)}
+          />
           <button type="submit">Update</button>
         </fieldset>
       </form>
