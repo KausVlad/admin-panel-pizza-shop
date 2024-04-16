@@ -2,11 +2,13 @@ import { FC, useRef } from "react";
 import { toggleDialog } from "../../utils/toggleDialog";
 
 type DeleteModalProps = {
+  productId: number;
   productName: string;
-  deleteMutation: (productName: string) => void;
+  deleteMutation: (productName: number) => void;
 };
 
 export const DeleteModal: FC<DeleteModalProps> = ({
+  productId,
   productName,
   deleteMutation,
 }) => {
@@ -14,7 +16,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({
   const toggleDialogRef = () => toggleDialog(dialogRef);
 
   const handleDelete = () => {
-    deleteMutation(productName);
+    deleteMutation(productId);
     toggleDialogRef();
   };
 

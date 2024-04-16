@@ -6,9 +6,9 @@ type UniversalProductCellProps = {
   productName: string;
   price: number;
   productImage: string;
-  portion: number;
-  rootProductPath: "pizza" | "otherProducts" | "ingredient";
-  deleteMutation: (productName: string) => void;
+  portion: number | string;
+  rootProductPath: "pizza" | "ingredient" | "otherProducts";
+  deleteMutation: (productName: number) => void;
 };
 
 export function UniversalProductCell({
@@ -32,8 +32,9 @@ export function UniversalProductCell({
       </td>
       <td>
         <DeleteModal
-          productName={productName}
+          productId={id}
           deleteMutation={deleteMutation}
+          productName={productName}
         />
       </td>
     </tr>

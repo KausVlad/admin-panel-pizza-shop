@@ -60,7 +60,7 @@ const baseQueryWithResult = async (
 export const pizzaShopApi = createApi({
   reducerPath: "pizzaShopApi",
   baseQuery: baseQueryWithResult,
-  tagTypes: ["Test", "Pizzas", "Pizza", "Ingredients"],
+  tagTypes: ["Test", "Pizzas", "Pizza", "Ingredients", "OtherProducts"],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (_) => ({}),
 });
