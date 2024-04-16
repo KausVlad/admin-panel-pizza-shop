@@ -41,9 +41,9 @@ export const pizzaEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Pizza", "Pizzas"],
     }),
-    deletePizza: builder.mutation<PizzaData, string>({
-      query: (pizzaName) => ({
-        url: `/pizza/${pizzaName}`,
+    deletePizza: builder.mutation<PizzaData, number>({
+      query: (pizzaId) => ({
+        url: `/pizza/${pizzaId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Pizzas"],
