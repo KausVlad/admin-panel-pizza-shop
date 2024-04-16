@@ -1,9 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { useGetPizzasQuery } from "../store/pizzaShopApi/pizza.endpoints";
-import UniversalProductCell from "./ui/UniversalProductCell";
+import {
+  useDeletePizzaMutation,
+  useGetPizzasQuery,
+} from "../store/pizzaShopApi/pizza.endpoints";
+import { UniversalProductCell } from "./ui/UniversalProductCell";
 
 export default function PizzasList() {
-  const { data, error, isLoading } = useGetPizzasQuery(null);
+  const { data, isLoading } = useGetPizzasQuery(null);
+  const [deletePizza] = useDeletePizzaMutation();
 
   return (
     <>
@@ -29,6 +33,8 @@ export default function PizzasList() {
                 productImage={"image(WIP)"}
                 portion={pizza.weightStandard}
                 price={pizza.priceStandard}
+                rootProductPath="pizza"
+                deleteMutation={deletePizza}
               />
             ))}
           </tbody>

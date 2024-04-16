@@ -180,6 +180,7 @@ export const UserProfile = () => {
           <input
             id="userPhoto"
             type="file"
+            accept="image/png, image/jpeg, image/jpg, image/webp"
             onChange={(e) => setUserPhoto(e.target.files?.[0] || null)}
           />
           <button type="submit">Update</button>

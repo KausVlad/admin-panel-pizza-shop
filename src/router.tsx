@@ -7,6 +7,7 @@ import { Login } from "./components/pages/Login";
 import { Pizza } from "./components/pages/Pizza";
 import { Ingredients } from "./components/pages/Ingredients";
 import { Profile } from "./components/pages/Profile";
+import { OtherProducts } from "./components/pages/OtherProducts";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
           {
             path: "ingredients",
             element: <Ingredients />,
+          },
+          {
+            path: "otherProducts",
+            element: <OtherProducts />,
           },
           {
             path: "profile",
