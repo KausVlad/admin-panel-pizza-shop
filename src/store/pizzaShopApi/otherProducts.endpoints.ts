@@ -9,7 +9,15 @@ export const otherProductsEndpoints = pizzaShopApi.injectEndpoints({
       }),
       providesTags: ["OtherProducts"],
     }),
+    deleteOtherProduct: builder.mutation<void, number>({
+      query: (productId) => ({
+        url: `/product/${productId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["OtherProducts"],
+    }),
   }),
 });
 
-export const { useGetOtherProductsQuery } = otherProductsEndpoints;
+export const { useGetOtherProductsQuery, useDeleteOtherProductMutation } =
+  otherProductsEndpoints;
