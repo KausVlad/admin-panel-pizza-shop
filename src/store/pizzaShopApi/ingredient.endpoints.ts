@@ -13,13 +13,15 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       providesTags: ["Ingredients"],
     }),
-    deleteIngredient: builder.mutation<string, string>({
-      query: (ingredientName) => ({
-        url: `/ingredient/${ingredientName}`,
+
+    deleteIngredient: builder.mutation<string, number>({
+      query: (ingredientId) => ({
+        url: `/ingredient/${ingredientId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Ingredients"],
     }),
+
     updateIngredient: builder.mutation<
       IngredientData,
       { ingredientId: number; newIngredientName: string }
@@ -31,6 +33,7 @@ export const ingredientEndpoints = pizzaShopApi.injectEndpoints({
       }),
       invalidatesTags: ["Ingredients"],
     }),
+
     addIngredient: builder.mutation<null, NewIngredientData>({
       query: (ingredient) => ({
         url: "/ingredient/add",
