@@ -4,7 +4,7 @@ import { toggleDialog } from "../../utils/toggleDialog";
 type DeleteModalProps = {
   productId: number;
   productName: string;
-  deleteMutation: (productName: number) => void;
+  deleteMutation: (productId: number) => void;
 };
 
 export const DeleteModal: FC<DeleteModalProps> = ({

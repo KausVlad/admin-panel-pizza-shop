@@ -139,9 +139,10 @@ export function UniversalProductPizzaDetails({
           <option value="GOURMET">Gourmet</option>
         </select>
         {serverMutation ? <button type="submit">{addOrEdit}</button> : null}
-        {addOrEdit === "edit" ? (
-          <DeleteModal
-            productName={pizzaDetails.pizzaName}
+        {addOrEdit === "edit" && data ? (
+          <DeleteModal // TODO: Fix this
+            productId={data.id}
+            productName={data.pizzaName}
             deleteMutation={deletePizza}
           />
         ) : null}

@@ -51,6 +51,7 @@ export const IngredientsList = () => {
               <td>{ingredient.ingredientGroup}</td>
               <td>
                 <DeleteModal
+                  productId={ingredient.id}
                   productName={ingredient.ingredientName}
                   deleteMutation={deleteIngredient}
                 />
