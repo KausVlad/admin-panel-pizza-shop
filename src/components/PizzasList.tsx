@@ -30,7 +30,7 @@ export default function PizzasList() {
                 key={pizza.id}
                 id={pizza.id}
                 productName={pizza.pizzaName}
-                productImage={"image(WIP)"}
+                productImageUrl={pizza.pizzaName} // TODO: add image url
                 portion={pizza.weightStandard}
                 price={pizza.priceStandard}
                 rootProductPath="pizza"

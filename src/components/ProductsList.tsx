@@ -30,7 +30,7 @@ export const ProductsList = () => {
                 key={product.id}
                 id={product.id}
                 productName={product.productName}
-                productImage={"image(WIP)"}
+                productImageUrl={product.productPhoto}
                 portion={product.productSize[0]}
                 price={product.productPrice[0]}
                 rootProductPath="otherProducts"

@@ -7,13 +7,14 @@ import { NavLink } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 
 export const TopBar = () => {
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const { handleLogout } = useLogout();
 
   const { userInfo } = useSelector((state: RootState) => state.auth);
-  const cld = new Cloudinary({ cloud: { cloudName: "dqzkbox6z" } });
+  const cld = new Cloudinary({ cloud: { cloudName: cloudName } });
 
-  const userImage = cld.image(userInfo?.userPhoto);
-  userImage.resize(fill().width(50));
+  const userImage = cld.image(userInfo?.userPhoto).resize(fill().width(50));
+  // userImage.resize(fill().width(50));
 
   return (
     <div className="flex">
